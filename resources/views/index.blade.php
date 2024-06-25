@@ -52,24 +52,58 @@
                 <div class="container mx-auto mt-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class=" shadow-lg p-6">
-                            <div>
-                                <label for="name"
-                                    class="block text-sm font-medium @if ($errors->has('fish')) text-red-700 @else text-gray-700 @endif">Familya
-                                    ism sharifingiz</label>
-                                <div class="relative rounded-md shadow-sm mt-1">
+                          <div>
+                            <label for="name"
+                              class="block text-sm font-medium @if($errors->has('fish')) text-red-700 @else text-gray-700 @endif">F.I.SH (familya, ism, sharifingizni to'liq yozing)</label>
+                            <div class="relative rounded-md shadow-sm mt-1">
+                              <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
+                                <svg class="h-5 w-5 @if($errors->has('fish')) text-red-400 @else text-gray-400 @endif"
+                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                  stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                </svg>
+                              </div>
+                              <input type="text" id="name" name="fish" value="{{old('fish')}}" required
+                                class="w-full pl-10 rounded-md text-sm @if($errors->has('fish')) border-red-300
+                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                placeholder="F.I.SH">
+                            </div>
+                            @if($errors->has('fish'))
+                            <p class="mt-2 text-sm text-red-600">
+                              @error('fish'){{ $message }}@enderror
+                            </p>
+                            @endif
+                          </div>
 
-                                    <input type="text" id="name" name="fish" value="{{ old('fish') }}"
-                                        required
-                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('fish')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
-                                        placeholder="F.I.SH">
+                            <div class="mt-6">
+                              <label for="phone_number"
+                                class="block text-sm font-medium @if($errors->has('telefon')) text-red-700 @else text-gray-700 @endif">Bog'lanish
+                                uchun telefon raqamiz (shaxsiy)</label>
+                              <div class="relative rounded-md shadow-sm mt-1">
+                                <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
+                                  <svg class="h-5 w-5 @if($errors->has('telefon')) text-red-400 @else text-gray-400 @endif"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                      d="M19.5 9.75a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 011.5 0v2.69l4.72-4.72a.75.75 0 111.06 1.06L16.06 9h2.69a.75.75 0 01.75.75z"
+                                      clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                      d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+                                      clip-rule="evenodd" />uni
+                                  </svg>
                                 </div>
-                                @if ($errors->has('fish'))
-                                    <p class="mt-2 text-sm text-red-600">
-                                        @error('fish')
-                                            {{ $message }}
-                                        @enderror
-                                    </p>
-                                @endif
+                                <input type="number" id="phone_number"
+                                  onkeydown="if (event.key === '-' || event.key === ',' || event.key === 'E' || event.key === 'e' || event.key === '.') event.preventDefault();"
+                                  name="telefon" value="{{old('telefon')}}"
+                                  class="w-full pl-10 rounded-md text-sm @if($errors->has('telefon')) border-red-300
+                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                  placeholder="+998(00 000 00 00)">
+                              </div>
+                              @if($errors->has('telefon'))
+                              <p class="mt-2 text-sm text-red-600">
+                                @error('telefon'){{ $message }}@enderror
+                              </p>
+                              @endif
                             </div>
 
                             <div class="mt-6">
@@ -79,13 +113,13 @@
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <input type="text" id="input1" name="input1" value="{{ old('input1') }}"
+                                        <input type="text" id="input1" name="input1" value="{{ old('passport_seriya') }}"
                                             class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                             placeholder="Seriyasi">
-                                        <input type="text" id="input2" name="input2" value="{{ old('input2') }}"
+                                        <input type="text" id="input2" name="input2" value="{{ old('passport_number') }}"
                                             class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input2')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                             placeholder="Raqami">
-                                        <input type="text" id="input3" name="input3" value="{{ old('input3') }}"
+                                        <input type="text" id="input3" name="input3" value="{{ old('passport_berilgan') }}"
                                             class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input3')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                             placeholder="Qachon berilgan">
                                     </div>
