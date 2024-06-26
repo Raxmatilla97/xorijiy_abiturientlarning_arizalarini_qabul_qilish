@@ -52,98 +52,24 @@
                 <div class="container mx-auto mt-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class=" shadow-lg p-6">
-                          <div>
-                            <label for="name"
-                              class="block text-sm font-medium @if($errors->has('fish')) text-red-700 @else text-gray-700 @endif">F.I.SH (familya, ism, sharifingizni to'liq yozing)</label>
-                            <div class="relative rounded-md shadow-sm mt-1">
-                              <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
-                                <svg class="h-5 w-5 @if($errors->has('fish')) text-red-400 @else text-gray-400 @endif"
-                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                  stroke="currentColor">
-                                  <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                                </svg>
-                              </div>
-                              <input type="text" id="name" name="fish" value="{{old('fish')}}" required
-                                class="w-full pl-10 rounded-md text-sm @if($errors->has('fish')) border-red-300
-                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
-                                placeholder="F.I.SH">
-                            </div>
-                            @if($errors->has('fish'))
-                            <p class="mt-2 text-sm text-red-600">
-                              @error('fish'){{ $message }}@enderror
-                            </p>
-                            @endif
-                          </div>
-
-                            <div class="mt-6">
-                              <label for="phone_number"
-                                class="block text-sm font-medium @if($errors->has('telefon')) text-red-700 @else text-gray-700 @endif">Bog'lanish
-                                uchun telefon raqamiz (shaxsiy)</label>
-                              <div class="relative rounded-md shadow-sm mt-1">
-                                <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
-                                  <svg class="h-5 w-5 @if($errors->has('telefon')) text-red-400 @else text-gray-400 @endif"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                      d="M19.5 9.75a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 011.5 0v2.69l4.72-4.72a.75.75 0 111.06 1.06L16.06 9h2.69a.75.75 0 01.75.75z"
-                                      clip-rule="evenodd" />
-                                    <path fill-rule="evenodd"
-                                      d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
-                                      clip-rule="evenodd" />uni
-                                  </svg>
-                                </div>
-                                <input type="number" id="phone_number"
-                                  onkeydown="if (event.key === '-' || event.key === ',' || event.key === 'E' || event.key === 'e' || event.key === '.') event.preventDefault();"
-                                  name="telefon" value="{{old('telefon')}}"
-                                  class="w-full pl-10 rounded-md text-sm @if($errors->has('telefon')) border-red-300
-                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
-                                  placeholder="+998(00 000 00 00)">
-                              </div>
-                              @if($errors->has('telefon'))
-                              <p class="mt-2 text-sm text-red-600">
-                                @error('telefon'){{ $message }}@enderror
-                              </p>
-                              @endif
-                            </div>
-
-                            <div class="mt-6">
-                                <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Passport
-                                    ma'lumotlari</label>
-                                <div class="relative rounded-md shadow-sm mt-1">
-
-                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <input type="text" id="input1" name="input1" value="{{ old('passport_seriya') }}"
-                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
-                                            placeholder="Seriyasi">
-                                        <input type="text" id="input2" name="input2" value="{{ old('passport_number') }}"
-                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input2')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
-                                            placeholder="Raqami">
-                                        <input type="text" id="input3" name="input3" value="{{ old('passport_berilgan') }}"
-                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input3')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
-                                            placeholder="Qachon berilgan">
-                                    </div>
-
-                                    @if ($errors->has('passport_place_info'))
-                                        <p class="mt-2 text-sm text-red-600">
-                                            @error('passport_place_info')
-                                                {{ $message }}
-                                            @enderror
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="mt-6">
+                            <div>
                                 <label for="name"
-                                    class="block text-sm font-medium @if ($errors->has('fish')) text-red-700 @else text-gray-700 @endif">Kim
-                                    tomonidan berilgan</label>
+                                    class="block text-sm font-medium @if ($errors->has('fish')) text-red-700 @else text-gray-700 @endif">F.I.SH
+                                    (familya, ism, sharifingizni to'liq yozing)</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
-
+                                    <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
+                                        <svg class="h-5 w-5 @if ($errors->has('fish')) text-red-400 @else text-gray-400 @endif"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                        </svg>
+                                    </div>
                                     <input type="text" id="name" name="fish" value="{{ old('fish') }}"
                                         required
-                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('fish')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
-                                        placeholder="Kim tomonidan berilganligini yozing">
+                                        class="w-full pl-10 rounded-md text-sm @if ($errors->has('fish')) border-red-300
+                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="F.I.SH">
                                 </div>
                                 @if ($errors->has('fish'))
                                     <p class="mt-2 text-sm text-red-600">
@@ -155,18 +81,61 @@
                             </div>
 
                             <div class="mt-6">
+                                <label for="phone_number"
+                                    class="block text-sm font-medium @if ($errors->has('telefon')) text-red-700 @else text-gray-700 @endif">Bog'lanish
+                                    uchun telefon raqamiz (shaxsiy)</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+                                    <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
+                                        <svg class="h-5 w-5 @if ($errors->has('telefon')) text-red-400 @else text-gray-400 @endif"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M19.5 9.75a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 011.5 0v2.69l4.72-4.72a.75.75 0 111.06 1.06L16.06 9h2.69a.75.75 0 01.75.75z"
+                                                clip-rule="evenodd" />
+                                            <path fill-rule="evenodd"
+                                                d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+                                                clip-rule="evenodd" />uni
+                                        </svg>
+                                    </div>
+                                    <input type="number" id="phone_number"
+                                        onkeydown="if (event.key === '-' || event.key === ',' || event.key === 'E' || event.key === 'e' || event.key === '.') event.preventDefault();"
+                                        name="telefon" value="{{ old('telefon') }}"
+                                        class="w-full pl-10 rounded-md text-sm @if ($errors->has('telefon')) border-red-300
+                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="+998(00 000 00 00)">
+                                </div>
+                                @if ($errors->has('telefon'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('telefon')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="mt-6">
                                 <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Otangiz
-                                    haqida yozing</label>
+                                    class="block text-sm font-medium @if ($errors->has('passport_seriya')) text-red-700 @else text-gray-700 @endif">Passport
+                                    ma'lumotlari</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
-                                    <textarea id="passport_place_info" name="passport_place_info" rows="3"
-                                        class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('passport_place_info')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
-                                        placeholder="Familiyasi, ismi va otasining ismi, turar joyi, lavozimi, telefon raqami">{{ old('passport_place_info') }}</textarea>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <input type="text" id="input1" name="input1"
+                                            value="{{ old('passport_seriya') }}"
+                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                            placeholder="Seriyasi">
+                                        <input type="text" id="input2" name="input2"
+                                            value="{{ old('passport_number') }}"
+                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input2')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                            placeholder="Raqami">
+                                        <input type="text" id="input3" name="input3"
+                                            value="{{ old('passport_berilgan_sana') }}"
+                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input3')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                            placeholder="Qachon berilgan">
+                                    </div>
 
-                                    @if ($errors->has('passport_place_info'))
+                                    @if ($errors->has('passport_seriya'))
                                         <p class="mt-2 text-sm text-red-600">
-                                            @error('passport_place_info')
+                                            @error('passport_seriya')
                                                 {{ $message }}
                                             @enderror
                                         </p>
@@ -175,18 +144,38 @@
                             </div>
 
                             <div class="mt-6">
-                                <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Onangiz
+                                <label for="passport_kim_bergan"
+                                    class="block text-sm font-medium @if ($errors->has('passport_kim_bergan')) text-red-700 @else text-gray-700 @endif">Kim
+                                    tomonidan berilgan</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+
+                                    <input type="text" id="passport_kim_bergan" name="passport_kim_bergan"
+                                        value="{{ old('passport_kim_bergan') }}" required
+                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('passport_kim_bergan')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="Kim tomonidan berilganligini yozing">
+                                </div>
+                                @if ($errors->has('passport_kim_bergan'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('passport_kim_bergan')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="mt-6">
+                                <label for="father_about"
+                                    class="block text-sm font-medium @if ($errors->has('father_about')) text-red-700 @else text-gray-700 @endif">Otangiz
                                     haqida yozing</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
-                                    <textarea id="passport_place_info" name="passport_place_info" rows="3"
-                                        class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('passport_place_info')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
-                                        placeholder="Familiyasi, ismi va otasining ismi, turar joyi, lavozimi, telefon raqami">{{ old('passport_place_info') }}</textarea>
+                                    <textarea id="father_about" name="father_about" rows="3"
+                                        class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('father_about')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                        placeholder="Familiyasi, ismi va otasining ismi, turar joyi, lavozimi, telefon raqami">{{ old('father_about') }}</textarea>
 
-                                    @if ($errors->has('passport_place_info'))
+                                    @if ($errors->has('father_about'))
                                         <p class="mt-2 text-sm text-red-600">
-                                            @error('passport_place_info')
+                                            @error('father_about')
                                                 {{ $message }}
                                             @enderror
                                         </p>
@@ -195,18 +184,38 @@
                             </div>
 
                             <div class="mt-6">
-                                <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Agar
+                                <label for="mather_about"
+                                    class="block text-sm font-medium @if ($errors->has('mather_about')) text-red-700 @else text-gray-700 @endif">Onangiz
+                                    haqida yozing</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+
+                                    <textarea id="mather_about" name="mather_about" rows="3"
+                                        class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('mather_about')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                        placeholder="Familiyasi, ismi va otasining ismi, turar joyi, lavozimi, telefon raqami">{{ old('mather_about') }}</textarea>
+
+                                    @if ($errors->has('mather_about'))
+                                        <p class="mt-2 text-sm text-red-600">
+                                            @error('mather_about')
+                                                {{ $message }}
+                                            @enderror
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <label for="about_health"
+                                    class="block text-sm font-medium @if ($errors->has('about_health')) text-red-700 @else text-gray-700 @endif">Agar
                                     sog‘lig‘ingizda muammolar bo‘lsa, iltimos, ma’lumotlarni kiriting</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
-                                    <textarea id="passport_place_info" name="passport_place_info" rows="6"
-                                        class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('passport_place_info')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
-                                        placeholder="Agar sog‘lig‘ingizda muammolar bo‘lsa, bu haqida to'liq yozing">{{ old('passport_place_info') }}</textarea>
+                                    <textarea id="about_health" name="about_health" rows="6"
+                                        class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('about_health')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                        placeholder="Agar sog‘lig‘ingizda muammolar bo‘lsa, bu haqida to'liq yozing">{{ old('about_health') }}</textarea>
 
-                                    @if ($errors->has('passport_place_info'))
+                                    @if ($errors->has('about_health'))
                                         <p class="mt-2 text-sm text-red-600">
-                                            @error('passport_place_info')
+                                            @error('about_health')
                                                 {{ $message }}
                                             @enderror
                                         </p>
@@ -218,20 +227,20 @@
 
                         <div class="shadow-lg p-6">
                             <div>
-                                <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Passport
+                                <label for="residence_to_passport"
+                                    class="block text-sm font-medium @if ($errors->has('residence_to_passport')) text-red-700 @else text-gray-700 @endif">Passport
                                     bo'yicha doyimiy yashash joyingiz</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
-                                    <input type="text" id="passport_place_info" name="passport_place_info"
-                                        value="{{ old('passport_place_info') }}"
-                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('passport_place_info')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                    <input type="text" id="residence_to_passport" name="residence_to_passport"
+                                        value="{{ old('residence_to_passport') }}"
+                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('residence_to_passport')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
                                         placeholder="Viloyat, Shahar(Tuman)">
 
                                 </div>
-                                @if ($errors->has('passport_place_info'))
+                                @if ($errors->has('residence_to_passport'))
                                     <p class="mt-2 text-sm text-red-600">
-                                        @error('passport_place_info')
+                                        @error('residence_to_passport')
                                             {{ $message }}
                                         @enderror
                                     </p>
@@ -239,16 +248,16 @@
                             </div>
 
                             <div class="mt-4 bg-gray-100 p-4 rounded-md">
-                                <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Passportingiz
+                                <label for="passport_file_upload"
+                                    class="block text-sm font-medium @if ($errors->has('passport_file_upload')) text-red-700 @else text-gray-700 @endif">Passportingiz
                                     suratini yuklang (Iloji bo'lsa bir suratda oldi va orqa taraflari bilan)</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
-                                    <input type="file" id="file" name="file"
+                                    <input type="file" id="passport_file_upload" name="passport_file_upload"
                                         class="w-full pl-5 rounded-md mt-4 text-sm border-gray-300 focus:border-green-500 focus:ring-green-500">
                                 </div>
-                                @if ($errors->has('passport_place_info'))
+                                @if ($errors->has('passport_file_upload'))
                                     <p class="mt-2 text-sm text-red-600">
-                                        @error('passport_place_info')
+                                        @error('passport_file_upload')
                                             {{ $message }}
                                         @enderror
                                     </p>
@@ -256,26 +265,26 @@
                             </div>
 
                             <div class="mt-6">
-                                <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Yo'nalish
+                                <label for="ignition_code"
+                                    class="block text-sm font-medium @if ($errors->has('ignition_code')) text-red-700 @else text-gray-700 @endif">Yo'nalish
                                     shifri va Nomi</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <input type="text" id="passport_place_info_1" name="passport_place_info_1"
-                                            value="{{ old('passport_place_info_1') }}"
-                                            class="w-full md:w-sm pl-5 rounded-md text-sm @if ($errors->has('passport_place_info_1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        <input type="text" id="ignition_code" name="ignition_code"
+                                            value="{{ old('ignition_code') }}"
+                                            class="w-full md:w-sm pl-5 rounded-md text-sm @if ($errors->has('ignition_code')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
                                             placeholder="Shifrni yozing">
-                                        <input type="text" id="passport_place_info_2" name="passport_place_info_2"
-                                            value="{{ old('passport_place_info_2') }}"
-                                            class="w-full md:w-auto pl-5 rounded-md text-sm @if ($errors->has('passport_place_info_2')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        <input type="text" id="ignition_name" name="ignition_name"
+                                            value="{{ old('ignition_name') }}"
+                                            class="w-full md:w-auto pl-5 rounded-md text-sm @if ($errors->has('ignition_name')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
                                             placeholder="Yo'nalish nomini yozing">
                                     </div>
 
                                 </div>
-                                @if ($errors->has('passport_place_info'))
+                                @if ($errors->has('ignition_code'))
                                     <p class="mt-2 text-sm text-red-600">
-                                        @error('passport_place_info')
+                                        @error('ignition_code')
                                             {{ $message }}
                                         @enderror
                                     </p>
@@ -290,57 +299,57 @@
 
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div class="col-span-1">
-                                            <select id="select1" name="select1"
+                                            <select id="educational_form" name="educational_form"
                                                 class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('select1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
                                                 <option value="">Ta'lim shaklini tanlang</option>
-                                                <option value="option1"
-                                                    @if (old('select1') == 'option1') selected @endif>Kunduzgi
+                                                <option value="kunduzgi"
+                                                    @if (old('educational_form') == 'kunduzgi') selected @endif>Kunduzgi
                                                 </option>
-                                                <option value="option2"
-                                                    @if (old('select1') == 'option2') selected @endif>Kechki</option>
-                                                <option value="option3"
-                                                    @if (old('select1') == 'option3') selected @endif>Sirtqi</option>
+                                                <option value="kechki"
+                                                    @if (old('educational_form') == 'kechki') selected @endif>Kechki</option>
+                                                <option value="sirtqi"
+                                                    @if (old('educational_form') == 'sirtqi') selected @endif>Sirtqi</option>
                                             </select>
-                                            @if ($errors->has('select1'))
+                                            @if ($errors->has('educational_form'))
                                                 <p class="mt-2 text-sm text-red-600">
-                                                    @error('select1')
+                                                    @error('educational_form')
                                                         {{ $message }}
                                                     @enderror
                                                 </p>
                                             @endif
                                         </div>
                                         <div class="col-span-1">
-                                            <select id="select2" name="select2"
+                                            <select id="gender" name="gender"
                                                 class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('select2')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
                                                 <option value="">Jinsingizni tanlang</option>
-                                                <option value="option1"
-                                                    @if (old('select2') == 'option1') selected @endif>Erkak</option>
-                                                <option value="option2"
-                                                    @if (old('select2') == 'option2') selected @endif>Ayol</option>
+                                                <option value="erkak"
+                                                    @if (old('gender') == 'erkak') selected @endif>Erkak</option>
+                                                <option value="ayol"
+                                                    @if (old('gender') == 'ayol') selected @endif>Ayol</option>
                                             </select>
-                                            @if ($errors->has('select2'))
+                                            @if ($errors->has('gender'))
                                                 <p class="mt-2 text-sm text-red-600">
-                                                    @error('select2')
+                                                    @error('gender')
                                                         {{ $message }}
                                                     @enderror
                                                 </p>
                                             @endif
                                         </div>
                                         <div class="col-span-1">
-                                            <select id="select3" name="select3"
+                                            <select id="education_level" name="education_level"
                                                 class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('select3')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
                                                 <option value="">Ma'lumotingizni tanlang</option>
                                                 <option value="option1"
-                                                    @if (old('select3') == 'option1') selected @endif>O'rta</option>
+                                                    @if (old('education_level') == 'orta') selected @endif>O'rta</option>
                                                 <option value="option2"
-                                                    @if (old('select3') == 'option2') selected @endif>O'rta maxsus
+                                                    @if (old('education_level') == 'orta_maxsus') selected @endif>O'rta maxsus
                                                 </option>
                                                 <option value="option3"
-                                                    @if (old('select3') == 'option3') selected @endif>Oliy</option>
+                                                    @if (old('education_level') == 'oliy') selected @endif>Oliy</option>
                                             </select>
-                                            @if ($errors->has('select3'))
+                                            @if ($errors->has('education_level'))
                                                 <p class="mt-2 text-sm text-red-600">
-                                                    @error('select3')
+                                                    @error('education_level')
                                                         {{ $message }}
                                                     @enderror
                                                 </p>
@@ -350,16 +359,17 @@
                                     </div>
 
                                     <div class="mt-4 bg-gray-100 p-4 rounded-md">
-                                        <label for="passport_place_info"
-                                            class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Ma'lumotizni
+                                        <label for="education_level_file"
+                                            class="block text-sm font-medium @if ($errors->has('education_level_file')) text-red-700 @else text-gray-700 @endif">Ma'lumotizni
                                             tasdiqlaydigan xujjatingizni yuklang ()</label>
                                         <div class="relative rounded-md shadow-sm mt-1">
-                                            <input type="file" id="file" name="file"
+                                            <input type="file" id="education_level_file"
+                                                name="education_level_file"
                                                 class="w-full pl-5 rounded-md mt-4 text-sm border-gray-300 focus:border-green-500 focus:ring-green-500">
                                         </div>
-                                        @if ($errors->has('passport_place_info'))
+                                        @if ($errors->has('education_level_file'))
                                             <p class="mt-2 text-sm text-red-600">
-                                                @error('passport_place_info')
+                                                @error('education_level_file')
                                                     {{ $message }}
                                                 @enderror
                                             </p>
@@ -369,29 +379,29 @@
                             </div>
 
                             <div class="mt-6">
-                                <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Suxbatni
+                                <label for="lang_prompt "
+                                    class="block text-sm font-medium @if ($errors->has('lang_prompt')) text-red-700 @else text-gray-700 @endif">Suxbatni
                                     qaysi tilda olib borilishini istaysiz?</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <div class="grid grid-cols-1 gap-4">
                                         <div class="col-span-1">
-                                            <select id="select1" name="select1"
+                                            <select id="lang_prompt" name="lang_prompt"
                                                 class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('select1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
                                                 <option value="">Tilni tanlang</option>
-                                                <option value="option1"
-                                                    @if (old('select1') == 'option1') selected @endif>O'zbek tilida
+                                                <option value="uz"
+                                                    @if (old('lang_prompt') == 'uz') selected @endif>O'zbek tilida
                                                 </option>
-                                                <option value="option2"
-                                                    @if (old('select1') == 'option2') selected @endif>Rus tilida
+                                                <option value="rus"
+                                                    @if (old('lang_prompt') == 'rus') selected @endif>Rus tilida
                                                 </option>
-                                                <option value="option3"
-                                                    @if (old('select1') == 'option3') selected @endif>Qoraqalpoq
+                                                <option value="karakalpak"
+                                                    @if (old('lang_prompt') == 'karakalpak') selected @endif>Qoraqalpoq
                                                     tilida</option>
                                             </select>
-                                            @if ($errors->has('select1'))
+                                            @if ($errors->has('lang_prompt'))
                                                 <p class="mt-2 text-sm text-red-600">
-                                                    @error('select1')
+                                                    @error('lang_prompt')
                                                         {{ $message }}
                                                     @enderror
                                                 </p>
@@ -416,13 +426,13 @@
                                 </div>
                                 <!-- <a
             href="#"
-            class="justify-center items-center flex rounded-md bg-green-600 py-2 px-4 text-white font-semibold shadow-lg hover:shadow-xl 
-              focus:shadow-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 
+            class="justify-center items-center flex rounded-md bg-green-600 py-2 px-4 text-white font-semibold shadow-lg hover:shadow-xl
+              focus:shadow-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500
               focus:ring-offset-2 transition duration-150 ease-in-out"
             >Jo'natish</a> -->
                                 <button
-                                    class="w-full justify-center items-center flex rounded-md bg-green-600 py-4 px-4 text-white font-semibold shadow-lg hover:shadow-xl 
-              focus:shadow-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 
+                                    class="w-full justify-center items-center flex rounded-md bg-green-600 py-4 px-4 text-white font-semibold shadow-lg hover:shadow-xl
+              focus:shadow-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500
               focus:ring-offset-2 transition duration-150 ease-in-out opacity-50"
                                     id="submit-button" disabled type="submit">Jo'natish</button>
                             </div>
