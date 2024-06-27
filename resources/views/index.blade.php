@@ -361,7 +361,7 @@
                                     <div class="mt-4 bg-gray-100 p-4 rounded-md">
                                         <label for="education_level_file"
                                             class="block text-sm font-medium @if ($errors->has('education_level_file')) text-red-700 @else text-gray-700 @endif">Ma'lumotizni
-                                            tasdiqlaydigan xujjatingizni yuklang ()</label>
+                                            tasdiqlaydigan xujjatingizni yuklang</label>
                                         <div class="relative rounded-md shadow-sm mt-1">
                                             <input type="file" id="education_level_file"
                                                 name="education_level_file"
@@ -425,15 +425,15 @@
                                     </div>
                                 </div>
                                 <!-- <a
-            href="#"
-            class="justify-center items-center flex rounded-md bg-green-600 py-2 px-4 text-white font-semibold shadow-lg hover:shadow-xl
-              focus:shadow-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500
-              focus:ring-offset-2 transition duration-150 ease-in-out"
-            >Jo'natish</a> -->
+                                        href="#"
+                                        class="justify-center items-center flex rounded-md bg-green-600 py-2 px-4 text-white font-semibold shadow-lg hover:shadow-xl
+                                        focus:shadow-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500
+                                        focus:ring-offset-2 transition duration-150 ease-in-out"
+                                        >Jo'natish</a> -->
                                 <button
                                     class="w-full justify-center items-center flex rounded-md bg-green-600 py-4 px-4 text-white font-semibold shadow-lg hover:shadow-xl
-              focus:shadow-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500
-              focus:ring-offset-2 transition duration-150 ease-in-out opacity-50"
+                                    focus:shadow-xl hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500
+                                    focus:ring-offset-2 transition duration-150 ease-in-out opacity-50"
                                     id="submit-button" disabled type="submit">Jo'natish</button>
                             </div>
 

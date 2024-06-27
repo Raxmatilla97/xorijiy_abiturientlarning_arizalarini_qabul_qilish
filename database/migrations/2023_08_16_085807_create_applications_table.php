@@ -13,19 +13,26 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
-            $table->string('number_generation')->nullable();
-            $table->string('fish');
-            $table->string('holat')->nullable();            
-            $table->string('pass_info');
-            $table->string('telefon');
-            $table->string('fakultet');
-            $table->string('yonalish');
-            $table->string('kurs_nomeri');
-            $table->string('guruhi');
-            $table->string('mezon');
-            $table->text('document')->nullable();
-            $table->text('message')->nullable();
-            $table->unsignedBigInteger('tekshirgan_user_id')->nullable();
+            $table->string('number_generation')->nullable(); // Arizani tekshirish uchun ishlatiladigan cod
+            $table->string('fish'); // Familya ism sharifi
+            $table->string('holat')->nullable(); // Ariza holati
+            $table->string('passport_seriya'); // Passport seryasi
+            $table->string('telefon'); // Telefoni
+            $table->string('passport_number'); // Passport nomeri
+            $table->string('passport_berilgan_sana'); // Passport berilgan sana
+            $table->string('passport_kim_bergan'); // Passportni bergan idora nomi
+            $table->string('father_about'); // Otasi haqida ma'lumot
+            $table->string('mather_about'); // Onasi haqida ma'lumot
+            $table->string('about_health'); // Sog'lig'i haqida
+            $table->string('residence_to_passport'); // Fuqoroligi haqida
+            $table->string('passport_file_upload');  // Passport nusxasini yuklasj
+            $table->string('ignition_code'); // Ta'lim yo'nalishi shifri
+            $table->string('educational_form'); // Ta'lim yo'nalishi nomlanishi
+            $table->string('passport_place_info'); // Tug'ulgan joy nomi
+            $table->string('gender'); // Jinsi
+            $table->string('education_level'); // Ma'lumoti (o'rta maxsus, bakalvr, oliy)
+            $table->string('education_level_file'); // Ma'lumotliligini tasdiqlovchi xujjat
+            $table->unsignedBigInteger('tekshirgan_user_id')->nullable(); // Arizani tekshirgan user
             $table->timestamps();
             $table->foreign('tekshirgan_user_id')->references('id')->on('users');
             $table->softDeletes();

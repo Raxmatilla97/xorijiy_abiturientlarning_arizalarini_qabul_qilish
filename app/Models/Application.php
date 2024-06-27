@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
-{ 
+{
     use SoftDeletes;
     use HasFactory;
 
@@ -15,18 +15,27 @@ class Application extends Model
         'fish',
         'number_generation',
         'holat',
-        'pass_info',
+        'passport_seriya',
         'telefon',
-        'fakultet',
-        'yonalish',
-        'kurs_nomeri',
-        'guruhi',
-        'mezon',
-        'document',
-        'message',
+        'passport_number',
+        'passport_berilgan_sana',
+        'passport_kim_bergan',
+        'father_about',
+        'mather_about',
+        'about_health',
+        'residence_to_passport',
         'tekshirgan_user_id',
+        'passport_file_upload',
+        'ignition_code',
+        'educational_form',
+        'passport_place_info',
+        'gender',
+        'education_level',
+        'education_level_file',
+
+        // 20
     ];
-   
+
     protected $dates = ['deleted_at'];
 
     protected $table = "applications";

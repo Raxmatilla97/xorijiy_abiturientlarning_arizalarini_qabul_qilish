@@ -19,7 +19,7 @@ class ApplicationController extends Controller
 {
 
     public function arizalarniYuborish()
-    {   
+    {
         return view('index');
     }
 
@@ -30,61 +30,61 @@ class ApplicationController extends Controller
     public function index()
     {
         $arizalar = Application::orderBy('created_at', 'desc')->paginate(15);
-        $arizalar = $this->filterArizalar($arizalar);  
+        $arizalar = $this->filterArizalar($arizalar);
 
         return view('dashboard.kelgan_arizalar.list')->with([
             'arizalar' => $arizalar,
         ]);
-    }   
+    }
 
     /**
      * Yangi yaratilgan resursni saqlash.
      */
     public function store(StoreapplicationRequest $request)
     {
-        
-        $tmp_file = TemporaryFile::where('folder', $request->document)->first();
+        dd($request);
+        // $tmp_file = TemporaryFile::where('folder', $request->document)->first();
 
         do {
             $code = random_int(1000000, 9999999);
         } while (Application::where('number_generation', $code)->exists());
 
-        $request->validate([
-            'g-recaptcha-response' => 'required|recaptcha',           
-        ]);
+        // $request->validate([
+        //     'g-recaptcha-response' => 'required|recaptcha',
+        // ]);
 
         $validatedData = $request->validated();
 
-        $validatedData['pass_info'] = preg_replace('/[^a-zA-Z0-9]/', '', $request['pass_info']);
+        // $validatedData['pass_info'] = preg_replace('/[^a-zA-Z0-9]/', '', $request['pass_info']);
         $validatedData['telefon'] = preg_replace('/[^0-9]/', '', $request['telefon']);
-        $validatedData['document'] = $tmp_file->folder . '/' . $tmp_file->filename . $tmp_file->file;        
+        // $validatedData['document'] = $tmp_file->folder . '/' . $tmp_file->filename . $tmp_file->file;
         $validatedData['number_generation'] = $code;
         $validatedData['holat'] = 'korib_chiqilmoqda';
-        $name = $validatedData['fish'];       
-               
-        Application::create($validatedData);         
-        
+        $name = $validatedData['fish'];
+
+        Application::create($validatedData);
+
         return redirect(route('confirm', ['code' => $code, 'name' => $name,]));
 
     }
 
 
     public function tahrirlash(UpdateapplicationRequest $request)
-    {   
+    {
         $data = $request->all();
         $data['tekshirgan_user_id'] = Auth::id();
         $application = Application::find($data['id']);
         $name = $application->fish;
-        
+
         $application->update($data);
 
         return redirect()->route('korilmagan-arizalar')->with(
         [
             // 'status' => true,
             'name' => $name
-        
+
         ]);
-      
+
 
     }
 
@@ -94,11 +94,11 @@ class ApplicationController extends Controller
     public function arizaniTekshirish(Request $request)
     {
         $data = $request->all();
-        $hulosa = ""; // $hulosa o'zgaruvchisini e'lon qilingan joydan o'zgartirdik      
-        
+        $hulosa = ""; // $hulosa o'zgaruvchisini e'lon qilingan joydan o'zgartirdik
+
         if (is_numeric($data['number_generation'])) {
 
-            $application = Application::where('number_generation', $data['number_generation'])->first();        
+            $application = Application::where('number_generation', $data['number_generation'])->first();
             if (!$application) {
                 $topilmadi = true;
                 $hulosa = [];
@@ -113,46 +113,46 @@ class ApplicationController extends Controller
             }
         } else {
             $topilmadi = true;
-            $hulosa = [];           
-        }        
-       
-        
+            $hulosa = [];
+        }
+
+
         return view('javob')->with([
             'hulosa' => $hulosa,
             'topilmadi' => $topilmadi
         ]);
     }
 
-  
+
 
     /**
      * Arizani mazmunini ko'rsatish
      */
     public function arizaniKorish($ariza)
     {
-       
-        $ariza = Application::where('id', $ariza )->first();   
-       
+
+        $ariza = Application::where('id', $ariza )->first();
+
         $ariza = $this->singleItem($ariza);
-       
+
         return view('dashboard.kelgan_arizalar.show')->with([
             'ariza' => $ariza,
         ]);;
     }
-  
+
     /**
      * Arizani o'chirish.
      */
     public function destroy($id)
     {
         $application = Application::find($id);
-        
+
         if (!$application) {
             return redirect()->back()->with('error', 'Ariza topilmadi'); // Ariza topilmadi xabarini qaytarish
         }
-        
+
         $application->delete();
-        
+
         return redirect()->back()->with('status', "Ro'yxatdan ariza o'chirildi!");
     }
 
@@ -162,7 +162,7 @@ class ApplicationController extends Controller
     public function maqullanganArizalar()
     {
         $arizalar = Application::where('holat', 'maqullandi')->orderBy('created_at', 'desc')->paginate(15);
-       
+
         $arizalar = $this->filterArizalar($arizalar);
 
         return view('dashboard.kelgan_arizalar.list')->with([
@@ -209,7 +209,7 @@ class ApplicationController extends Controller
         $arizalar_korilmagan = Application::where('holat', 'korib_chiqilmoqda' )->count();
 
         $arizalar = Application::where('holat', 'korib_chiqilmoqda')->orderBy('created_at', 'desc')->paginate(10);
-        $arizalar = $this->filterArizalar($arizalar);  
+        $arizalar = $this->filterArizalar($arizalar);
 
 
         return view('dashboard')->with([
@@ -230,25 +230,25 @@ class ApplicationController extends Controller
         $passInfo = $request->input('pass_info');
         $telefon = $request->input('telefon');
         $numberGeneration = $request->input('number_generation');
-    
+
         $query = Application::query();
-    
+
         if ($fish) {
             $query->where('fish', 'like', '%' . $fish . '%');
         }
-    
-        if ($passInfo) {          
+
+        if ($passInfo) {
             $query->where('pass_info', 'like', '%' . $passInfo . '%');
         }
-    
+
         if ($telefon) {
-            $query->where('telefon', 'like', '%' . $telefon . '%');          
+            $query->where('telefon', 'like', '%' . $telefon . '%');
         }
-    
+
         if ($numberGeneration) {
             $query->where('number_generation', $numberGeneration);
         }
-    
+
         $arizalar = $query->paginate(10);
 
         return view('dashboard.kelgan_arizalar.list', compact('arizalar'));
@@ -261,9 +261,9 @@ class ApplicationController extends Controller
     {
         foreach ($arizalar as $ariza) {
             // Asosiy ro'yxatni singleItem() funksiyasidan oladi!
-            $ariza = $this->singleItem($ariza);           
+            $ariza = $this->singleItem($ariza);
         }
-        
+
         return $arizalar;
     }
 
@@ -299,7 +299,7 @@ class ApplicationController extends Controller
 
         // Yo'nalishlarni aniqlash
         if ($ariza->yonalish === 'ozbek-tilshunosligi-yonalishi') {
-            $ariza->yonalish = "O‘zbek tilshunosligi yo'nalishi";            
+            $ariza->yonalish = "O‘zbek tilshunosligi yo'nalishi";
         }elseif($ariza->yonalish === 'ozbek-adabiyotshunosligi-yonalishi') {
             $ariza->yonalish = "O‘zbek adabiyotshunosligi yo'nalishi";
         }elseif($ariza->yonalish === 'fakultetlararo-rus-tili-yonalishi') {
@@ -404,25 +404,25 @@ class ApplicationController extends Controller
 
     public function adminlar(){
             $adminlar = User::paginate(10);
-         
+
             return  view('adminlar')->with('adminlar', $adminlar);
     }
 
     public function adminDelete($id)
     {
-       
+
         $user = User::find($id);
-        
+
         if (!$user) {
             return redirect()->back()->with('error', 'Admin topilmadi'); // Ariza topilmadi xabarini qaytarish
         }
-        
+
         $user->delete();
-        
+
         return redirect()->back()->with('status', "Ro'yxatdan admin o'chirildi!");
     }
 
-    public function pdfYuklash($request) 
+    public function pdfYuklash($request)
     {
         $ariza = Application::where('id', $request)->first();
 
@@ -453,7 +453,7 @@ class ApplicationController extends Controller
 
         // Yo'nalishlarni aniqlash
         if ($ariza['yonalish'] === 'ozbek-tilshunosligi-yonalishi') {
-            $ariza['yonalish'] = "O‘zbek tilshunosligi yo'nalishi";            
+            $ariza['yonalish'] = "O‘zbek tilshunosligi yo'nalishi";
         }elseif($ariza['yonalish'] === 'ozbek-adabiyotshunosligi-yonalishi') {
             $ariza['yonalish'] = "O‘zbek adabiyotshunosligi yo'nalishi";
         }elseif($ariza['yonalish'] === 'fakultetlararo-rus-tili-yonalishi') {
@@ -559,10 +559,10 @@ class ApplicationController extends Controller
         } elseif($ariza['holat'] == "rad_etildi") {
             $ariza['holat'] = "Ariza rad etilgan!";
         }
-        
-        
 
-        
+
+
+
         if ($ariza) {
             $data = [
                 'id' => $ariza['id'],
@@ -579,17 +579,17 @@ class ApplicationController extends Controller
                 'mezon' => $ariza['mezon'],
                 'document' => $ariza['document'],
                 'message' => $ariza['message'],
-                
-                
 
-               
-            ];           
-                       
+
+
+
+            ];
+
             $pdf = PDF::loadView('pdf', ['data' => $data]);
-            
+
             return $pdf->download('laratutorials.pdf');
         }
-    
+
         // Handle the case when $ariza is not found
         // You can redirect or return an error message
         return redirect()->back()->with('error', 'Invalid application ID');
@@ -598,5 +598,5 @@ class ApplicationController extends Controller
 
 
 
-    
+
 }
