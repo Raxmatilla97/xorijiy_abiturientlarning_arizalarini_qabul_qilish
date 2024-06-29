@@ -48,6 +48,15 @@
                 @method('post')
 
                 <h3 class="text-xl font-semibold text-gray-900 text-center">Ma'lumotlaringizni to'ldiring ! </h3>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                 <div class="container mx-auto mt-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -96,7 +105,7 @@
                                                 clip-rule="evenodd" />uni
                                         </svg>
                                     </div>
-                                    <input type="number" id="phone_number"
+                                    <input type="number" id="phone_number" required
                                         onkeydown="if (event.key === '-' || event.key === ',' || event.key === 'E' || event.key === 'e' || event.key === '.') event.preventDefault();"
                                         name="telefon" value="{{ old('telefon') }}"
                                         class="w-full pl-10 rounded-md text-sm @if ($errors->has('telefon')) border-red-300
@@ -112,30 +121,166 @@
                                 @endif
                             </div>
 
+
+                            <div class="mt-6">
+                                <label for="brith_day"
+                                    class="block text-sm font-medium @if ($errors->has('passport_seriya')) text-red-700 @else text-gray-700 @endif">Qaysi
+                                    sanada tug'ulgansiz?</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                                        <div class="grid grid-cols-1 gap-4">
+                                            <div class="col-span-1">
+                                                <select id="brith_day" name="brith_day" required
+                                                    class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('brith_day')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
+                                                    <option value="">Kunlarni tanlang</option>
+                                                    @for ($i = 1; $i <= 31; $i++)
+                                                        <option value="{{ $i }}"
+                                                            @if (old('brith_day') == $i) selected @endif>
+                                                            {{ $i }}</option>
+                                                    @endfor
+                                                </select>
+
+                                                @if ($errors->has('brith_day'))
+                                                    <p class="mt-2 text-sm text-red-600">
+                                                        @error('brith_day')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </p>
+                                                @endif
+                                            </div>
+
+                                        </div>
+
+                                        <div class="grid grid-cols-1 gap-4">
+                                            <div class="col-span-1">
+                                                <select id="brith_moth" name="brith_moth" required
+                                                    class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('months')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
+                                                    <option value="">Oylarni tanlang</option>
+                                                    <option value="1"
+                                                        @if (old('brith_moth') == '1') selected @endif>
+                                                        Yanvar</option>
+                                                    <option value="2"
+                                                        @if (old('brith_moth') == '2') selected @endif>
+                                                        Fevral</option>
+                                                    <option value="3"
+                                                        @if (old('brith_moth') == '3') selected @endif>
+                                                        Mart</option>
+                                                    <option value="4"
+                                                        @if (old('brith_moth') == '4') selected @endif>
+                                                        Aprel</option>
+                                                    <option value="5"
+                                                        @if (old('brith_moth') == '5') selected @endif>
+                                                        May</option>
+                                                    <option value="6"
+                                                        @if (old('brith_moth') == '6') selected @endif>
+                                                        Iyun</option>
+                                                    <option value="7"
+                                                        @if (old('brith_moth') == '7') selected @endif>
+                                                        Iyul</option>
+                                                    <option value="8"
+                                                        @if (old('brith_moth') == '8') selected @endif>
+                                                        Avgust</option>
+                                                    <option value="9"
+                                                        @if (old('brith_moth') == '9') selected @endif>
+                                                        Sentyabr</option>
+                                                    <option value="10"
+                                                        @if (old('brith_moth') == '10') selected @endif>
+                                                        Oktyabr</option>
+                                                    <option value="11"
+                                                        @if (old('brith_moth') == '11') selected @endif>
+                                                        Noyabr</option>
+                                                    <option value="12"
+                                                        @if (old('brith_moth') == '12') selected @endif>
+                                                        Dekabr</option>
+                                                </select>
+
+                                                @if ($errors->has('brith_moth'))
+                                                    <p class="mt-2 text-sm text-red-600">
+                                                        @error('brith_moth')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </p>
+                                                @endif
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="grid grid-cols-1 gap-4">
+                                            <div class="col-span-1">
+                                                <select id="brith_year" name="brith_year" required
+                                                    class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('brith_year')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
+                                                    <option value="">Yilni tanlang</option>
+                                                    @for ($year = 1975; $year <= 2015; $year++)
+                                                        <option value="{{ $year }}"
+                                                            @if (old('brith_year') == $year) selected @endif>
+                                                            {{ $year }}</option>
+                                                    @endfor
+                                                </select>
+
+
+                                                @if ($errors->has('brith_year'))
+                                                    <p class="mt-2 text-sm text-red-600">
+                                                        @error('brith_year')
+                                                            {{ $message }}
+                                                        @enderror
+                                                    </p>
+                                                @endif
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
                             <div class="mt-6">
                                 <label for="passport_place_info"
+                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Tug'ulgan joyingiz (To'liq holda yozing!)</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+
+                                    <input type="text" id="passport_place_info" name="passport_place_info"
+                                        value="{{ old('passport_place_info') }}" required
+                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('passport_place_info')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="Qaysi davlat, viloyat va shaxarligini yozing">
+                                </div>
+                                @if ($errors->has('passport_place_info'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('passport_place_info')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="mt-6">
+                                <label for="passport_seriya"
                                     class="block text-sm font-medium @if ($errors->has('passport_seriya')) text-red-700 @else text-gray-700 @endif">Passport
                                     ma'lumotlari</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                        <input type="text" id="input1" name="input1"
+                                        <input type="text" id="passport_seriya" name="passport_seriya" required
                                             value="{{ old('passport_seriya') }}"
-                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('passport_seriya')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                             placeholder="Seriyasi">
-                                        <input type="text" id="input2" name="input2"
+                                        <input type="text" id="passport_number" name="passport_number" required
                                             value="{{ old('passport_number') }}"
-                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input2')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('passport_number')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                             placeholder="Raqami">
-                                        <input type="text" id="input3" name="input3"
+                                        <input type="text" id="passport_berilgan_sana"
+                                            name="passport_berilgan_sana" required
                                             value="{{ old('passport_berilgan_sana') }}"
-                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('input3')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
+                                            class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('passport_berilgan_sana')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                             placeholder="Qachon berilgan">
                                     </div>
 
-                                    @if ($errors->has('passport_seriya'))
+                                    @if ($errors->has('passport_berilgan_sana'))
                                         <p class="mt-2 text-sm text-red-600">
-                                            @error('passport_seriya')
+                                            @error('passport_berilgan_sana')
                                                 {{ $message }}
                                             @enderror
                                         </p>
@@ -169,7 +314,7 @@
                                     haqida yozing</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
-                                    <textarea id="father_about" name="father_about" rows="3"
+                                    <textarea id="father_about" name="father_about" rows="3" required
                                         class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('father_about')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                         placeholder="Familiyasi, ismi va otasining ismi, turar joyi, lavozimi, telefon raqami">{{ old('father_about') }}</textarea>
 
@@ -189,7 +334,7 @@
                                     haqida yozing</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
-                                    <textarea id="mather_about" name="mather_about" rows="3"
+                                    <textarea id="mather_about" name="mather_about" rows="3" required
                                         class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('mather_about')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                         placeholder="Familiyasi, ismi va otasining ismi, turar joyi, lavozimi, telefon raqami">{{ old('mather_about') }}</textarea>
 
@@ -209,7 +354,7 @@
                                     sog‘lig‘ingizda muammolar bo‘lsa, iltimos, ma’lumotlarni kiriting</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
-                                    <textarea id="about_health" name="about_health" rows="6"
+                                    <textarea id="about_health" name="about_health" rows="6" required
                                         class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('about_health')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                         placeholder="Agar sog‘lig‘ingizda muammolar bo‘lsa, bu haqida to'liq yozing">{{ old('about_health') }}</textarea>
 
@@ -229,11 +374,11 @@
                             <div>
                                 <label for="residence_to_passport"
                                     class="block text-sm font-medium @if ($errors->has('residence_to_passport')) text-red-700 @else text-gray-700 @endif">Passport
-                                    bo'yicha doyimiy yashash joyingiz</label>
+                                    bo'yicha doyimiy yashash manzilingiz</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <input type="text" id="residence_to_passport" name="residence_to_passport"
-                                        value="{{ old('residence_to_passport') }}"
+                                        required value="{{ old('residence_to_passport') }}"
                                         class="w-full pl-5 rounded-md text-sm @if ($errors->has('residence_to_passport')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
                                         placeholder="Viloyat, Shahar(Tuman)">
 
@@ -248,11 +393,11 @@
                             </div>
 
                             <div class="mt-4 bg-gray-100 p-4 rounded-md">
-                                <label for="passport_file_upload"
-                                    class="block text-sm font-medium @if ($errors->has('passport_file_upload')) text-red-700 @else text-gray-700 @endif">Passportingiz
+                                <label for="passport_file_upload" class="block text-sm font-medium ">Passportingiz
                                     suratini yuklang (Iloji bo'lsa bir suratda oldi va orqa taraflari bilan)</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
                                     <input type="file" id="passport_file_upload" name="passport_file_upload"
+                                        required
                                         class="w-full pl-5 rounded-md mt-4 text-sm border-gray-300 focus:border-green-500 focus:ring-green-500">
                                 </div>
                                 @if ($errors->has('passport_file_upload'))
@@ -271,11 +416,11 @@
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <input type="text" id="ignition_code" name="ignition_code"
+                                        <input type="text" id="ignition_code" name="ignition_code" required
                                             value="{{ old('ignition_code') }}"
                                             class="w-full md:w-sm pl-5 rounded-md text-sm @if ($errors->has('ignition_code')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
                                             placeholder="Shifrni yozing">
-                                        <input type="text" id="ignition_name" name="ignition_name"
+                                        <input type="text" id="ignition_name" name="ignition_name" required
                                             value="{{ old('ignition_name') }}"
                                             class="w-full md:w-auto pl-5 rounded-md text-sm @if ($errors->has('ignition_name')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
                                             placeholder="Yo'nalish nomini yozing">
@@ -292,14 +437,14 @@
                             </div>
 
                             <div class="mt-6">
-                                <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Ta'lim
+                                <label for="educational_form"
+                                    class="block text-sm font-medium @if ($errors->has('educational_form')) text-red-700 @else text-gray-700 @endif">Ta'lim
                                     shaklini va boshqa ma'lumotlarni tanlang</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div class="col-span-1">
-                                            <select id="educational_form" name="educational_form"
+                                            <select id="educational_form" name="educational_form" required
                                                 class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('select1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
                                                 <option value="">Ta'lim shaklini tanlang</option>
                                                 <option value="kunduzgi"
@@ -319,7 +464,7 @@
                                             @endif
                                         </div>
                                         <div class="col-span-1">
-                                            <select id="gender" name="gender"
+                                            <select id="gender" name="gender" required
                                                 class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('select2')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
                                                 <option value="">Jinsingizni tanlang</option>
                                                 <option value="erkak"
@@ -336,15 +481,15 @@
                                             @endif
                                         </div>
                                         <div class="col-span-1">
-                                            <select id="education_level" name="education_level"
+                                            <select id="education_level" name="education_level" required
                                                 class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('select3')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
                                                 <option value="">Ma'lumotingizni tanlang</option>
-                                                <option value="option1"
+                                                <option value="orta"
                                                     @if (old('education_level') == 'orta') selected @endif>O'rta</option>
-                                                <option value="option2"
+                                                <option value="orta_maxsus"
                                                     @if (old('education_level') == 'orta_maxsus') selected @endif>O'rta maxsus
                                                 </option>
-                                                <option value="option3"
+                                                <option value="oliy"
                                                     @if (old('education_level') == 'oliy') selected @endif>Oliy</option>
                                             </select>
                                             @if ($errors->has('education_level'))
@@ -360,10 +505,10 @@
 
                                     <div class="mt-4 bg-gray-100 p-4 rounded-md">
                                         <label for="education_level_file"
-                                            class="block text-sm font-medium @if ($errors->has('education_level_file')) text-red-700 @else text-gray-700 @endif">Ma'lumotizni
+                                            class="block text-sm font-medium ">Ma'lumotizni
                                             tasdiqlaydigan xujjatingizni yuklang</label>
                                         <div class="relative rounded-md shadow-sm mt-1">
-                                            <input type="file" id="education_level_file"
+                                            <input type="file" id="education_level_file" required
                                                 name="education_level_file"
                                                 class="w-full pl-5 rounded-md mt-4 text-sm border-gray-300 focus:border-green-500 focus:ring-green-500">
                                         </div>
@@ -386,7 +531,7 @@
 
                                     <div class="grid grid-cols-1 gap-4">
                                         <div class="col-span-1">
-                                            <select id="lang_prompt" name="lang_prompt"
+                                            <select id="lang_prompt" name="lang_prompt" required
                                                 class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('select1')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
                                                 <option value="">Tilni tanlang</option>
                                                 <option value="uz"

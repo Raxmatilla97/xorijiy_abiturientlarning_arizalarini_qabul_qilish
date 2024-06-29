@@ -27,11 +27,16 @@ return new class extends Migration
             $table->string('residence_to_passport'); // Fuqoroligi haqida
             $table->string('passport_file_upload');  // Passport nusxasini yuklasj
             $table->string('ignition_code'); // Ta'lim yo'nalishi shifri
-            $table->string('educational_form'); // Ta'lim yo'nalishi nomlanishi
+            $table->string('ignition_name'); // Ta'lim yo'nalishi nomlanishi
+            $table->string('educational_form'); // Ta'lim yo'nalishi shakli
+            $table->string('brith_day'); // Tug'ulgan kun
+            $table->string('brith_moth'); // Tug'ulgan oy
+            $table->string('brith_year'); // Tug'ulgan yil
             $table->string('passport_place_info'); // Tug'ulgan joy nomi
             $table->string('gender'); // Jinsi
             $table->string('education_level'); // Ma'lumoti (o'rta maxsus, bakalvr, oliy)
             $table->string('education_level_file'); // Ma'lumotliligini tasdiqlovchi xujjat
+            $table->string('lang_prompt'); // Suxbatni qaysi tilda olib borish bo'yicha
             $table->unsignedBigInteger('tekshirgan_user_id')->nullable(); // Arizani tekshirgan user
             $table->timestamps();
             $table->foreign('tekshirgan_user_id')->references('id')->on('users');

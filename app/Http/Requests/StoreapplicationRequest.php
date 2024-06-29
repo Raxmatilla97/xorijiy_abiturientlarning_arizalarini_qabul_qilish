@@ -45,15 +45,21 @@ class StoreapplicationRequest extends FormRequest
             'residence_to_passport' => 'required',
             'passport_file_upload' => 'required|file',
             'ignition_code' => 'required',
+            'ignition_name' => 'required',
             'educational_form' => 'required',
-            'passport_place_info' => 'required',
             'gender' => 'required',
             'education_level' => 'required',
             'education_level_file' => 'required|file',
+            'lang_prompt' => 'required',
+            'brith_day' => 'required',
+            'brith_moth' => 'required',
+            'brith_year' => 'required',
+
 
         ];
     }
-    public function messages()    {
+    public function messages()
+    {
 
         return [
 
@@ -62,45 +68,82 @@ class StoreapplicationRequest extends FormRequest
             'fish.min' => "Familya ism sharifingizni to'liq yozishingiz kerak.",
             'fish.max' => "Familya ism sharifingiz shunchalik uzunmi? 😒",
 
-            // Passport ma'lumoti uchun validatsiya messaglari
-            'pass_info.required' => "Pasportingizni Serya va Nomerini yozishingiz kerak.",
-            'pass_info.min' => "Pasportingizni Serya va Nomerini to'liq yozishingiz kerak.",
-            'pass_info.max' => "Pasportingiz Serya va Nomeri shunchalik uzunmi? 😒",
-            'pass_info.unique' => "Bu pasport serya raqami bo'yicha ariza qoldirilgan!",
-
             // Telefon ma'lumoti uchun validatsiya messaglari
             'telefon.required' => "Shaxsiy telefon raqamingizni yozishingiz kerak.",
             'telefon.min' => "Shaxsiy telefon raqamingizni to'liq yozishingiz kerak.",
             'telefon.max' => "Shaxsiy telefon raqamingiz shunchalik uzunmi? 😒",
             'telefon.unique' => "Bu telefon raqami bo'yicha ariza qoldirilgan!",
+            // Passport number validation messages
+            'passport_number.required' => "Pasport raqamini kiritishingiz kerak.",
+            'passport_number.unique' => "Bu pasport raqami allaqachon mavjud.",
+            'passport_number.min' => "Pasport raqami kamida 2 ta belgidan iborat bo'lishi kerak.",
+            'passport_number.max' => "Pasport raqami 25 ta belgidan oshmasligi kerak.",
 
-            // Fakultet ma'lumoti uchun validatsiya messaglari
-            'fakultet.required' => "Ro'yxatda fakultetingizni tanlashingiz kerak.",
-            'fakultet.min' => "Ro'yxatda fakultetingizni tanlashingiz kerak.",
-            'fakultet.max' => "Ro'yxatda fakultetingiz nomi shunchalik uzunmi? 😒",
+            // Passport series validation messages
+            'passport_seriya.required' => "Pasport seriyasini kiritishingiz kerak.",
+            'passport_seriya.min' => "Pasport seriyasi kamida 1 ta belgidan iborat bo'lishi kerak.",
+            'passport_seriya.max' => "Pasport seriyasi 25 ta belgidan oshmasligi kerak.",
 
-            // Yonalish ma'lumoti uchun validatsiya messaglari
-            'yonalish.required' => "Ro'yxatda yo'nalishingizni tanlashingiz kerak.",
-            'yonalish.min' => "Ro'yxatda yo'nalishingizni tanlashingiz kerak.",
-            'yonalish.max' => "Ro'yxatda yo'nalishingizni nomi shunchalik uzunmi? 😒",
+            // Passport issue date validation messages
+            'passport_berilgan_sana.required' => "Pasport berilgan sanasini kiritishingiz kerak.",
+            'passport_berilgan_sana.min' => "Pasport berilgan sanasi kamida 1 ta belgidan iborat bo'lishi kerak.",
+            'passport_berilgan_sana.max' => "Pasport berilgan sanasi 10 ta belgidan oshmasligi kerak.",
 
-            // Qaysi kursda o'qishi haqidagi ma'lumoti uchun validatsiya messaglari
-            'kurs_nomeri.required' => "Ro'yxatda qaysi kursda o'qishingizni tanlashingiz kerak.",
-            'kurs_nomeri.min' => "Ro'yxatda qaysi kursda o'qishingizni tanlashingiz kerak.",
-            'kurs_nomeri.max' => "Ro'yxatda kursiz nomi shunchalik uzunmi? 😒",
+            // Passport issued by validation messages
+            'passport_kim_bergan.required' => "Pasport kim tomonidan berilganligini kiritishingiz kerak.",
+            'passport_kim_bergan.min' => "Pasport kim tomonidan berilganligi kamida 3 ta belgidan iborat bo'lishi kerak.",
+            'passport_kim_bergan.max' => "Pasport kim tomonidan berilganligi 100 ta belgidan oshmasligi kerak.",
 
-            // Qaysi guruhda o'qishi haqidagi ma'lumoti uchun validatsiya messaglari
-            'guruhi.required' => "Qaysi guruhda o'qishingizni yozishingiz kerak.",
-            'guruhi.min' => "Qaysi guruhda o'qishingizni to'liq yozishingiz kerak.",
-            'guruhi.max' => "Guruhiz nomi shunchalik uzunmi? 😒",
+            // Father's information validation messages
+            'father_about.required' => "Otaning ma'lumotlarini kiritishingiz kerak.",
+            'father_about.min' => "Otaning ma'lumotlari kamida 5 ta belgidan iborat bo'lishi kerak.",
+            'father_about.max' => "Otaning ma'lumotlari 500 ta belgidan oshmasligi kerak.",
 
-            // Mezon ma'lumoti uchun validatsiya messaglari
-            'mezon.required' => "Quyidagi mezonlardan birini tanlashingiz kerak.",
+            // Mother's information validation messages
+            'mather_about.required' => "Onaning ma'lumotlarini kiritishingiz kerak.",
+            'mather_about.min' => "Onaning ma'lumotlari kamida 5 ta belgidan iborat bo'lishi kerak.",
+            'mather_about.max' => "Onaning ma'lumotlari 500 ta belgidan oshmasligi kerak.",
 
-            // Hujjatlar uchun validatsiya messaglari
-            'document.required' => "Hujjatingizni yuklashingiz kerak.",
+            // Health information validation messages
+            'about_health.required' => "Sog'liq haqida ma'lumotlarni kiritishingiz kerak.",
+            'about_health.min' => "Sog'liq haqida ma'lumotlar kamida 5 ta belgidan iborat bo'lishi kerak.",
+            'about_health.max' => "Sog'liq haqida ma'lumotlar 500 ta belgidan oshmasligi kerak.",
 
+            // Residence information validation messages
+            'residence_to_passport.required' => "Yashash joyi haqida ma'lumotlarni kiritishingiz kerak.",
+
+            // Passport file upload validation messages
+            'passport_file_upload.required' => "Pasport faylini yuklashingiz kerak.",
+            'passport_file_upload.file' => "Pasport fayli bo'lishi kerak.",
+
+            // Ignition code validation messages
+            'ignition_code.required' => "Ignition kodini kiritishingiz kerak.",
+
+            // Educational form validation messages
+            'educational_form.required' => "Ta'lim shaklini kiritishingiz kerak.",
+
+            // Passport place information validation messages
+            'passport_place_info.required' => "Pasport joyi haqida ma'lumotlarni kiritishingiz kerak.",
+
+            // Gender validation messages
+            'gender.required' => "Jinsingizni kiritishingiz kerak.",
+
+            // Education level validation messages
+            'education_level.required' => "Ta'lim darajasini kiritishingiz kerak.",
+
+            // Education level file upload validation messages
+            'education_level_file.required' => "Ta'lim darajasi faylini yuklashingiz kerak.",
+            'education_level_file.file' => "Ta'lim darajasi fayli bo'lishi kerak.",
+
+            // Lang prompt  validation messages
+            'lang_prompt.required' => "Suxbatni qaysi tilda olib borilishini tanlashingiz kerak.",
+
+               // Lang prompt  validation messages
+            'ignition_name.required' => "Ta'lim yo'nalish nomini yozishingiz kerak.",
+
+            'brith_day.required' => "Tug'ulgan kunizni yozishingiz kerak.",
+            'brith_moth.required' => "Tug'ulgan oyizni tanlashingiz kerak.",
+            'brith_year.required' => "Tug'ulgan yilingizni yozishingiz kerak.",
         ];
-
     }
 }

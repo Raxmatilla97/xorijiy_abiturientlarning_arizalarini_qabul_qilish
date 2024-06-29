@@ -27,13 +27,18 @@ class Application extends Model
         'tekshirgan_user_id',
         'passport_file_upload',
         'ignition_code',
+        'ignition_name',
         'educational_form',
         'passport_place_info',
         'gender',
         'education_level',
         'education_level_file',
+        'lang_prompt',
+        'brith_day',
+        'brith_moth',
+        'brith_year',
 
-        // 20
+        // 22
     ];
 
     protected $dates = ['deleted_at'];
