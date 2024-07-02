@@ -42,25 +42,32 @@ class ApplicationController extends Controller
      */
     public function store(StoreapplicationRequest $request)
     {
-        dd($request);
-        // $tmp_file = TemporaryFile::where('folder', $request->document)->first();
 
         do {
             $code = random_int(1000000, 9999999);
         } while (Application::where('number_generation', $code)->exists());
 
-        // $request->validate([
-        //     'g-recaptcha-response' => 'required|recaptcha',
-        // ]);
-
         $validatedData = $request->validated();
 
-        // $validatedData['pass_info'] = preg_replace('/[^a-zA-Z0-9]/', '', $request['pass_info']);
+
         $validatedData['telefon'] = preg_replace('/[^0-9]/', '', $request['telefon']);
-        // $validatedData['document'] = $tmp_file->folder . '/' . $tmp_file->filename . $tmp_file->file;
         $validatedData['number_generation'] = $code;
         $validatedData['holat'] = 'korib_chiqilmoqda';
         $name = $validatedData['fish'];
+
+        if ($request->hasFile('passport_file_upload') && $request->hasFile('education_level_file')) {
+            $passportFile = $request->file('passport_file_upload');
+            $educationFile = $request->file('education_level_file');
+
+            // Fayllarni saqlash
+            $passportFilePath = $passportFile->store('uploads', 'public');
+            $educationFilePath = $educationFile->store('uploads', 'public');
+
+            // Fayl yo'llarini validatedData ga qo'shish
+            $validatedData['passport_file_upload'] = $passportFilePath;
+            $validatedData['education_level_file'] = $educationFilePath;
+        }
+
 
         Application::create($validatedData);
 

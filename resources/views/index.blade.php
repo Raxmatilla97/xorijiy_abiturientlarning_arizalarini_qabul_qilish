@@ -48,7 +48,7 @@
                 @method('post')
 
                 <h3 class="text-xl font-semibold text-gray-900 text-center">Ma'lumotlaringizni to'ldiring ! </h3>
-                @if ($errors->any())
+                {{-- @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
@@ -56,7 +56,7 @@
                             @endforeach
                         </ul>
                     </div>
-                @endif
+                @endif --}}
 
                 <div class="container mx-auto mt-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -82,9 +82,12 @@
                                 </div>
                                 @if ($errors->has('fish'))
                                     <p class="mt-2 text-sm text-red-600">
-                                        @error('fish')
-                                            {{ $message }}
-                                        @enderror
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('fish') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
                                     </p>
                                 @endif
                             </div>
@@ -114,9 +117,12 @@
                                 </div>
                                 @if ($errors->has('telefon'))
                                     <p class="mt-2 text-sm text-red-600">
-                                        @error('telefon')
-                                            {{ $message }}
-                                        @enderror
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('telefon') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
                                     </p>
                                 @endif
                             </div>
@@ -124,7 +130,7 @@
 
                             <div class="mt-6">
                                 <label for="brith_day"
-                                    class="block text-sm font-medium @if ($errors->has('passport_seriya')) text-red-700 @else text-gray-700 @endif">Qaysi
+                                    class="block text-sm font-medium @if ($errors->has('brith_day')) text-red-700 @else text-gray-700 @endif">Qaysi
                                     sanada tug'ulgansiz?</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
@@ -144,9 +150,12 @@
 
                                                 @if ($errors->has('brith_day'))
                                                     <p class="mt-2 text-sm text-red-600">
-                                                        @error('brith_day')
-                                                            {{ $message }}
-                                                        @enderror
+                                                        @php
+                                                            $i = 1;
+                                                        @endphp
+                                                        @foreach ($errors->get('brith_day') as $message)
+                                                            {{ $i++ }}. {{ $message }}<br>
+                                                        @endforeach
                                                     </p>
                                                 @endif
                                             </div>
@@ -198,9 +207,12 @@
 
                                                 @if ($errors->has('brith_moth'))
                                                     <p class="mt-2 text-sm text-red-600">
-                                                        @error('brith_moth')
-                                                            {{ $message }}
-                                                        @enderror
+                                                        @php
+                                                            $i = 1;
+                                                        @endphp
+                                                        @foreach ($errors->get('brith_moth') as $message)
+                                                            {{ $i++ }}. {{ $message }}<br>
+                                                        @endforeach
                                                     </p>
                                                 @endif
                                             </div>
@@ -223,9 +235,12 @@
 
                                                 @if ($errors->has('brith_year'))
                                                     <p class="mt-2 text-sm text-red-600">
-                                                        @error('brith_year')
-                                                            {{ $message }}
-                                                        @enderror
+                                                        @php
+                                                            $i = 1;
+                                                        @endphp
+                                                        @foreach ($errors->get('brith_year') as $message)
+                                                            {{ $i++ }}. {{ $message }}<br>
+                                                        @endforeach
                                                     </p>
                                                 @endif
                                             </div>
@@ -239,7 +254,8 @@
 
                             <div class="mt-6">
                                 <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Tug'ulgan joyingiz (To'liq holda yozing!)</label>
+                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Tug'ulgan
+                                    joyingiz (To'liq holda yozing!)</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <input type="text" id="passport_place_info" name="passport_place_info"
@@ -249,9 +265,12 @@
                                 </div>
                                 @if ($errors->has('passport_place_info'))
                                     <p class="mt-2 text-sm text-red-600">
-                                        @error('passport_place_info')
-                                            {{ $message }}
-                                        @enderror
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('passport_place_info') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
                                     </p>
                                 @endif
                             </div>
@@ -280,9 +299,12 @@
 
                                     @if ($errors->has('passport_berilgan_sana'))
                                         <p class="mt-2 text-sm text-red-600">
-                                            @error('passport_berilgan_sana')
-                                                {{ $message }}
-                                            @enderror
+                                            @php
+                                                $i = 1;
+                                            @endphp
+                                            @foreach ($errors->get('passport_berilgan_sana') as $message)
+                                                {{ $i++ }}. {{ $message }}<br>
+                                            @endforeach
                                         </p>
                                     @endif
                                 </div>
@@ -301,9 +323,12 @@
                                 </div>
                                 @if ($errors->has('passport_kim_bergan'))
                                     <p class="mt-2 text-sm text-red-600">
-                                        @error('passport_kim_bergan')
-                                            {{ $message }}
-                                        @enderror
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('passport_kim_bergan') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
                                     </p>
                                 @endif
                             </div>
@@ -320,9 +345,12 @@
 
                                     @if ($errors->has('father_about'))
                                         <p class="mt-2 text-sm text-red-600">
-                                            @error('father_about')
-                                                {{ $message }}
-                                            @enderror
+                                            @php
+                                                $i = 1;
+                                            @endphp
+                                            @foreach ($errors->get('father_about') as $message)
+                                                {{ $i++ }}. {{ $message }}<br>
+                                            @endforeach
                                         </p>
                                     @endif
                                 </div>
@@ -340,9 +368,12 @@
 
                                     @if ($errors->has('mather_about'))
                                         <p class="mt-2 text-sm text-red-600">
-                                            @error('mather_about')
-                                                {{ $message }}
-                                            @enderror
+                                            @php
+                                                $i = 1;
+                                            @endphp
+                                            @foreach ($errors->get('mather_about') as $message)
+                                                {{ $i++ }}. {{ $message }}<br>
+                                            @endforeach
                                         </p>
                                     @endif
                                 </div>
@@ -358,11 +389,15 @@
                                         class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('about_health')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
                                         placeholder="Agar sog‘lig‘ingizda muammolar bo‘lsa, bu haqida to'liq yozing">{{ old('about_health') }}</textarea>
 
+
                                     @if ($errors->has('about_health'))
                                         <p class="mt-2 text-sm text-red-600">
-                                            @error('about_health')
-                                                {{ $message }}
-                                            @enderror
+                                            @php
+                                                $i = 1;
+                                            @endphp
+                                            @foreach ($errors->get('about_health') as $message)
+                                                {{ $i++ }}. {{ $message }}<br>
+                                            @endforeach
                                         </p>
                                     @endif
                                 </div>
@@ -402,9 +437,12 @@
                                 </div>
                                 @if ($errors->has('passport_file_upload'))
                                     <p class="mt-2 text-sm text-red-600">
-                                        @error('passport_file_upload')
-                                            {{ $message }}
-                                        @enderror
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('passport_file_upload') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
                                     </p>
                                 @endif
                             </div>
@@ -514,9 +552,12 @@
                                         </div>
                                         @if ($errors->has('education_level_file'))
                                             <p class="mt-2 text-sm text-red-600">
-                                                @error('education_level_file')
-                                                    {{ $message }}
-                                                @enderror
+                                                @php
+                                                    $i = 1;
+                                                @endphp
+                                                @foreach ($errors->get('education_level_file') as $message)
+                                                    {{ $i++ }}. {{ $message }}<br>
+                                                @endforeach
                                             </p>
                                         @endif
                                     </div>

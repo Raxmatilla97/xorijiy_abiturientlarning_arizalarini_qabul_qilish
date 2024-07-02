@@ -36,24 +36,25 @@ class StoreapplicationRequest extends FormRequest
                 'min:2',
                 'max:25',
             ],
-            'passport_seriya' => 'required|min:1|max:25',
+            'passport_seriya' => 'required|min:4|max:25',
             'passport_berilgan_sana' => 'required|min:1|max:10',
             'passport_kim_bergan' => 'required|min:3|max:100',
             'father_about' => 'required|min:5|max:500',
             'mather_about' => 'required|min:5|max:500',
             'about_health' => 'required|min:5|max:500',
             'residence_to_passport' => 'required',
-            'passport_file_upload' => 'required|file',
+            'passport_file_upload' => 'required|file|mimes:pdf,jpg,png,doc,docx,pdf|max:2048',
             'ignition_code' => 'required',
             'ignition_name' => 'required',
             'educational_form' => 'required',
             'gender' => 'required',
             'education_level' => 'required',
-            'education_level_file' => 'required|file',
+            'education_level_file' => 'required|file|mimes:pdf,jpg,png,doc,docx,pdf|max:2048',
             'lang_prompt' => 'required',
             'brith_day' => 'required',
             'brith_moth' => 'required',
             'brith_year' => 'required',
+            'passport_place_info' => 'required'
 
 
         ];
@@ -73,6 +74,7 @@ class StoreapplicationRequest extends FormRequest
             'telefon.min' => "Shaxsiy telefon raqamingizni to'liq yozishingiz kerak.",
             'telefon.max' => "Shaxsiy telefon raqamingiz shunchalik uzunmi? 😒",
             'telefon.unique' => "Bu telefon raqami bo'yicha ariza qoldirilgan!",
+
             // Passport number validation messages
             'passport_number.required' => "Pasport raqamini kiritishingiz kerak.",
             'passport_number.unique' => "Bu pasport raqami allaqachon mavjud.",
@@ -81,7 +83,7 @@ class StoreapplicationRequest extends FormRequest
 
             // Passport series validation messages
             'passport_seriya.required' => "Pasport seriyasini kiritishingiz kerak.",
-            'passport_seriya.min' => "Pasport seriyasi kamida 1 ta belgidan iborat bo'lishi kerak.",
+            'passport_seriya.min' => "Pasport seriyasi kamida 4 ta belgidan iborat bo'lishi kerak.",
             'passport_seriya.max' => "Pasport seriyasi 25 ta belgidan oshmasligi kerak.",
 
             // Passport issue date validation messages
@@ -95,19 +97,19 @@ class StoreapplicationRequest extends FormRequest
             'passport_kim_bergan.max' => "Pasport kim tomonidan berilganligi 100 ta belgidan oshmasligi kerak.",
 
             // Father's information validation messages
-            'father_about.required' => "Otaning ma'lumotlarini kiritishingiz kerak.",
-            'father_about.min' => "Otaning ma'lumotlari kamida 5 ta belgidan iborat bo'lishi kerak.",
-            'father_about.max' => "Otaning ma'lumotlari 500 ta belgidan oshmasligi kerak.",
+            'father_about.required' => "Otangiz haqidagi ma'lumotlarini kiritishingiz kerak.",
+            'father_about.min' => "Otangiz haqidagi ma'lumotlar kamida 5 ta belgidan iborat bo'lishi kerak.",
+            'father_about.max' => "Otangiz haqidagi ma'lumotlar 500 ta belgidan oshmasligi kerak.",
 
             // Mother's information validation messages
-            'mather_about.required' => "Onaning ma'lumotlarini kiritishingiz kerak.",
-            'mather_about.min' => "Onaning ma'lumotlari kamida 5 ta belgidan iborat bo'lishi kerak.",
-            'mather_about.max' => "Onaning ma'lumotlari 500 ta belgidan oshmasligi kerak.",
+            'mather_about.required' => "Onangiz haqidagi ma'lumotlarini kiritishingiz kerak.",
+            'mather_about.min' => "Onangiz haqidagi ma'lumotlar kamida 5 ta belgidan iborat bo'lishi kerak.",
+            'mather_about.max' => "Onangiz haqidagi ma'lumotlar 500 ta belgidan oshmasligi kerak.",
 
             // Health information validation messages
-            'about_health.required' => "Sog'liq haqida ma'lumotlarni kiritishingiz kerak.",
-            'about_health.min' => "Sog'liq haqida ma'lumotlar kamida 5 ta belgidan iborat bo'lishi kerak.",
-            'about_health.max' => "Sog'liq haqida ma'lumotlar 500 ta belgidan oshmasligi kerak.",
+            'about_health.required' => "Sog'lig'ingiz haqida ma'lumotlarni kiritishingiz kerak.",
+            'about_health.min' => "Sog'lig'ingiz haqida ma'lumotlar kamida 5 ta belgidan iborat bo'lishi kerak.",
+            'about_health.max' => "Sog'lig'ingiz haqida ma'lumotlar 500 ta belgidan oshmasligi kerak.",
 
             // Residence information validation messages
             'residence_to_passport.required' => "Yashash joyi haqida ma'lumotlarni kiritishingiz kerak.",
@@ -115,9 +117,11 @@ class StoreapplicationRequest extends FormRequest
             // Passport file upload validation messages
             'passport_file_upload.required' => "Pasport faylini yuklashingiz kerak.",
             'passport_file_upload.file' => "Pasport fayli bo'lishi kerak.",
+            'passport_file_upload.max' => "Fayl hajmi :max kb dan kotta bo'lmasligi kerak",
+            'passport_file_upload.mimes' => "Fayl formati quyidagilardan iborat bo'lishi kerak! Namuna: :values",
 
             // Ignition code validation messages
-            'ignition_code.required' => "Ignition kodini kiritishingiz kerak.",
+            'ignition_code.required' => "Ta'lim shrifti kodini kiritishingiz kerak.",
 
             // Educational form validation messages
             'educational_form.required' => "Ta'lim shaklini kiritishingiz kerak.",
@@ -134,6 +138,8 @@ class StoreapplicationRequest extends FormRequest
             // Education level file upload validation messages
             'education_level_file.required' => "Ta'lim darajasi faylini yuklashingiz kerak.",
             'education_level_file.file' => "Ta'lim darajasi fayli bo'lishi kerak.",
+            'education_level_file.max' => "Fayl hajmi :max kb dan kotta bo'lmasligi kerak",
+            'education_level_file.mimes' => "Fayl formati quyidagilardan iborat bo'lishi kerak! Namuna: :values",
 
             // Lang prompt  validation messages
             'lang_prompt.required' => "Suxbatni qaysi tilda olib borilishini tanlashingiz kerak.",
@@ -143,7 +149,7 @@ class StoreapplicationRequest extends FormRequest
 
             'brith_day.required' => "Tug'ulgan kunizni yozishingiz kerak.",
             'brith_moth.required' => "Tug'ulgan oyizni tanlashingiz kerak.",
-            'brith_year.required' => "Tug'ulgan yilingizni yozishingiz kerak.",
+            'brith_year.required' => "Tug'ulgan yilingizni tanlashingiz kerak.",
         ];
     }
 }
