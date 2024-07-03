@@ -63,10 +63,15 @@ class ApplicationController extends Controller
             $passportFilePath = $passportFile->store('uploads', 'public');
             $educationFilePath = $educationFile->store('uploads', 'public');
 
-            // Fayl yo'llarini validatedData ga qo'shish
-            $validatedData['passport_file_upload'] = $passportFilePath;
-            $validatedData['education_level_file'] = $educationFilePath;
+            // Fayl nomlarini olish
+            $passportFileName = basename($passportFilePath);
+            $educationFileName = basename($educationFilePath);
+
+            // Fayl nomlarini validatedData ga qo'shish
+            $validatedData['passport_file_upload'] = $passportFileName;
+            $validatedData['education_level_file'] = $educationFileName;
         }
+
 
 
         Application::create($validatedData);

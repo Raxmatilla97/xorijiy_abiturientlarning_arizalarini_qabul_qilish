@@ -9,7 +9,7 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/views/vendor/pagination/*.blade.php'
     ],
-
+    darkMode: false, // dark rejimini o'chirish
     theme: {
         extend: {
             fontFamily: {
@@ -17,6 +17,5 @@ export default {
             },
         },
     },
-
     plugins: [forms],
 };

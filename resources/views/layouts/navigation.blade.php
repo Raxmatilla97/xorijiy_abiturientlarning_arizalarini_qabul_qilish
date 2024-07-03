@@ -20,8 +20,8 @@
                     <x-nav-link :href="route('kelgan-arizalar')" :active="request()->routeIs('kelgan-arizalar')">
                         {{ __("Barcha arizalar ro'yxati") }}
                     </x-nav-link>
-                </div>              
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">                  
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <button id="openModal"  class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Ariza qidirish
                     </button>
@@ -44,7 +44,7 @@
 
 
             <div id="adminModal" class="fixed inset-0 flex items-center justify-center z-50 hidden bg-gray-500 bg-opacity-75">
-                <div class="bg-white rounded-lg p-8 w-[400px]">                   
+                <div class="bg-white rounded-lg p-8 w-[400px]">
                     @include('auth.register')
                     <button id="closeButton" type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mt-4">
                         Yopish
@@ -52,7 +52,7 @@
 
                 </div>
             </div>
-            
+
             <script>
                 // Modalı açmak için düğmeye tıklama olayı
                 var adminButton = document.getElementById("adminButton");
@@ -129,7 +129,7 @@
                 {{ __('Boshqaruv paneli') }}
             </x-responsive-nav-link>
         </div>
-        
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -166,10 +166,10 @@
                     <svg viewBox="0 0 40 40" class="w-20 h-20 fill-current">
                         <path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z">
                         </path>
-                    </svg>        
+                    </svg>
                     <p class="mx-3 text-sm">Quyidagi maydonlardan biriga ariza ma'lumotini yozing va qidirish tugmasini bosing. (Barcha maydonlarni to'ldirish shart emas!)</p>
-                </div>       
-               
+                </div>
+
             </div>
         </div>
         <form action="{{ route('arizalarni-qidirish')}}" method="POST" class="flex flex-col">
@@ -187,9 +187,9 @@
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Qidirish
                 </button>
-                
+
             </div>
-           
+
         </form>
     </div>
 </div>
