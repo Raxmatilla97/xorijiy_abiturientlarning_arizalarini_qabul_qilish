@@ -32,7 +32,7 @@ Route::post('/tmp-upload', [TestController::class, 'tmpUpload']);
 /*
 |--------------------------------------------------------------------------
 | Boshqaruv panelini routerlari
-|--------------------------------------------------------------------------    
+|--------------------------------------------------------------------------
 */
 
     Route::middleware(['auth', 'verified'])->group(function () {
@@ -41,7 +41,7 @@ Route::post('/tmp-upload', [TestController::class, 'tmpUpload']);
             // Adminlarni routeri
             Route::get('/dashboard/admin-register', function () {
                 return view('auth.register');
-            })->name('admin-register'); 
+            })->name('admin-register');
 
             // Adminlar ro'yxati
             Route::get('/dashboard/adminlar', [ApplicationController::class, 'adminlar'])->name('adminlar');
@@ -53,10 +53,10 @@ Route::post('/tmp-upload', [TestController::class, 'tmpUpload']);
             Route::post('/dashboard/admin-register', [ApplicationController::class, 'adminRegisterStore'])->name('admin-register-store');
         });
 
-    
-    
+
+
     Route::get('/dashboard', [ApplicationController::class, 'dashboard'])->name('dashboard');
-    
+
     /*
     |------------------------------------------------------------------------------
     | Talabalardan kelgan arizalarni ko'rish va tahrirlash sahifalarini routerlari
@@ -82,10 +82,10 @@ Route::post('/tmp-upload', [TestController::class, 'tmpUpload']);
      Route::get('/dashboard/korilmagan-arizalar', [ApplicationController::class, 'korilmaganArizalar'])->name('korilmagan-arizalar');
 
     // Arizani ko'rish
-    Route::get('/dashboard/arizani-korish/{id}', [ApplicationController::class, 'arizaniKorish'])->name('arizani-korish'); 
+    Route::get('/dashboard/arizani-korish/{id}', [ApplicationController::class, 'arizaniKorish'])->name('arizani-korish');
 
     // Talabalardan kelib tushgan arizlalarni ko'rish sahifasi
-    Route::get('/dashboard/kelgan-arizalarni-korish', [ApplicationController::class, 'show'])->name('kelgan-arizalarni-korish');   
+    Route::get('/dashboard/kelgan-arizalarni-korish', [ApplicationController::class, 'show'])->name('kelgan-arizalarni-korish');
 
     // Talabalardan kelib tushgan arizlalarnini o'chirish
     Route::delete('/dashboard/kelgan-arizalarni-ochirish/{id}', [ApplicationController::class, 'destroy'])->name('kelgan-arizalarni-ochirish');
@@ -93,7 +93,7 @@ Route::post('/tmp-upload', [TestController::class, 'tmpUpload']);
     /*
     |--------------------------------------------------------------------------
     | Boshqa boshqaruv routerlari
-    |--------------------------------------------------------------------------    
+    |--------------------------------------------------------------------------
     */
 
     // Route::get('/dashboard/pdf-down', function () {
@@ -102,6 +102,8 @@ Route::post('/tmp-upload', [TestController::class, 'tmpUpload']);
 
      // Arizani yuklab olish
      Route::get('/dashboard/pdf-yuklash/{id}', [ApplicationController::class, 'pdfYuklash'])->name('pdf-yuklash');
+
+     Route::get('/create-doc-from-template/{id}', [ApplicationController::class, 'createDocFromTemplate'])->name('createDocFromTemplate');
 
     // Route::get('/dashboard/ariza-qidirish', function () {
     //     echo "Ariza qidirish sahifasi bo'ladi!";

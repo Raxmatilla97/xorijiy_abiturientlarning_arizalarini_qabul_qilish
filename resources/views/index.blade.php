@@ -92,41 +92,6 @@
                                 @endif
                             </div>
 
-                            <div class="mt-6">
-                                <label for="phone_number"
-                                    class="block text-sm font-medium @if ($errors->has('telefon')) text-red-700 @else text-gray-700 @endif">Bog'lanish
-                                    uchun telefon raqamiz (shaxsiy)</label>
-                                <div class="relative rounded-md shadow-sm mt-1">
-                                    <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
-                                        <svg class="h-5 w-5 @if ($errors->has('telefon')) text-red-400 @else text-gray-400 @endif"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M19.5 9.75a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 011.5 0v2.69l4.72-4.72a.75.75 0 111.06 1.06L16.06 9h2.69a.75.75 0 01.75.75z"
-                                                clip-rule="evenodd" />
-                                            <path fill-rule="evenodd"
-                                                d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
-                                                clip-rule="evenodd" />uni
-                                        </svg>
-                                    </div>
-                                    <input type="number" id="phone_number" required
-                                        onkeydown="if (event.key === '-' || event.key === ',' || event.key === 'E' || event.key === 'e' || event.key === '.') event.preventDefault();"
-                                        name="telefon" value="{{ old('telefon') }}"
-                                        class="w-full pl-10 rounded-md text-sm @if ($errors->has('telefon')) border-red-300
-                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
-                                        placeholder="+998(00 000 00 00)">
-                                </div>
-                                @if ($errors->has('telefon'))
-                                    <p class="mt-2 text-sm text-red-600">
-                                        @php
-                                            $i = 1;
-                                        @endphp
-                                        @foreach ($errors->get('telefon') as $message)
-                                            {{ $i++ }}. {{ $message }}<br>
-                                        @endforeach
-                                    </p>
-                                @endif
-                            </div>
-
 
                             <div class="mt-6">
                                 <label for="brith_day"
@@ -405,8 +370,47 @@
 
                         </div>
 
+
                         <div class="shadow-lg p-6">
-                            <div>
+
+
+                            <div >
+                                <label for="phone_number"
+                                    class="block text-sm font-medium @if ($errors->has('telefon')) text-red-700 @else text-gray-700 @endif">Bog'lanish
+                                    uchun telefon raqamiz (shaxsiy)</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+                                    <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
+                                        <svg class="h-5 w-5 @if ($errors->has('telefon')) text-red-400 @else text-gray-400 @endif"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M19.5 9.75a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 011.5 0v2.69l4.72-4.72a.75.75 0 111.06 1.06L16.06 9h2.69a.75.75 0 01.75.75z"
+                                                clip-rule="evenodd" />
+                                            <path fill-rule="evenodd"
+                                                d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+                                                clip-rule="evenodd" />uni
+                                        </svg>
+                                    </div>
+                                    <input type="number" id="phone_number" required
+                                        onkeydown="if (event.key === '-' || event.key === ',' || event.key === 'E' || event.key === 'e' || event.key === '.') event.preventDefault();"
+                                        name="telefon" value="{{ old('telefon') }}"
+                                        class="w-full pl-10 rounded-md text-sm @if ($errors->has('telefon')) border-red-300
+                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="+998(00 000 00 00)">
+                                </div>
+                                @if ($errors->has('telefon'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('telefon') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
+                                    </p>
+                                @endif
+                            </div>
+
+
+                            <div class="mt-6">
                                 <label for="residence_to_passport"
                                     class="block text-sm font-medium @if ($errors->has('residence_to_passport')) text-red-700 @else text-gray-700 @endif">Passport
                                     bo'yicha doyimiy yashash manzilingiz</label>

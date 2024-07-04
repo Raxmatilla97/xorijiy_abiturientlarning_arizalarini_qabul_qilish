@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\TemporaryFile;
@@ -12,7 +13,9 @@ use App\Models\User;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-
+use PhpOffice\PhpWord\TemplateProcessor;
+use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 use PDF;
 
 class ApplicationController extends Controller
@@ -77,7 +80,50 @@ class ApplicationController extends Controller
         Application::create($validatedData);
 
         return redirect(route('confirm', ['code' => $code, 'name' => $name,]));
+    }
 
+    public function createDocFromTemplate($id)
+    {
+
+        $templatePath = public_path('uzb_bildirishnoma.docx');
+
+        if (!file_exists($templatePath)) {
+            return response()->json(['error' => 'Doc fayl topiladi'], 404);
+        }
+
+        $templateProcessor = new TemplateProcessor($templatePath);
+
+
+        $userDetail = Application::findOrFail($id);
+
+        $templateProcessor->setValue('residence_to_passport', $userDetail->residence_to_passport);
+        $templateProcessor->setValue('fish', $userDetail->fish);
+        $templateProcessor->setValue('ignition_code', $userDetail->ignition_code);
+        $templateProcessor->setValue('ignition_name', $userDetail->ignition_name);
+        $templateProcessor->setValue('educational_form', $userDetail->educational_form);
+        $templateProcessor->setValue('gender', $userDetail->gender);
+        $templateProcessor->setValue('education_level', $userDetail->education_level);
+        $templateProcessor->setValue('brith_year', $userDetail->brith_year);
+        $templateProcessor->setValue('brith_day', $userDetail->brith_day);
+        $templateProcessor->setValue('brith_moth', $userDetail->brith_moth);
+        $templateProcessor->setValue('passport_place_info', $userDetail->passport_place_info);
+        $templateProcessor->setValue('lang_prompt', $userDetail->lang_prompt);
+        $templateProcessor->setValue('father_about', $userDetail->father_about);
+        $templateProcessor->setValue('mather_about', $userDetail->mather_about);
+        $templateProcessor->setValue('about_health', $userDetail->about_health);
+
+
+        $outputDirectory = storage_path('uploads');
+
+        if (!File::exists($outputDirectory)) {
+            File::makeDirectory($outputDirectory, 0755, true);
+        }
+
+        $formattedDate = Carbon::parse($userDetail->created_at)->format('Y-m-d');
+        $outputPath = $outputDirectory . "/" . $userDetail->fish .' '. $formattedDate . ".docx";
+        $templateProcessor->saveAs($outputPath);
+
+        return response()->download($outputPath);
     }
 
 
@@ -91,13 +137,12 @@ class ApplicationController extends Controller
         $application->update($data);
 
         return redirect()->route('korilmagan-arizalar')->with(
-        [
-            // 'status' => true,
-            'name' => $name
+            [
+                // 'status' => true,
+                'name' => $name
 
-        ]);
-
-
+            ]
+        );
     }
 
     /**
@@ -143,7 +188,7 @@ class ApplicationController extends Controller
     public function arizaniKorish($ariza)
     {
 
-        $ariza = Application::where('id', $ariza )->first();
+        $ariza = Application::where('id', $ariza)->first();
 
         $ariza = $this->singleItem($ariza);
 
@@ -218,7 +263,7 @@ class ApplicationController extends Controller
         $arizalar_count = Application::count();
         $arizalar_maqullangan = Application::where('holat', 'maqullandi')->count();
         $arizalar_rad_etildi = Application::where('holat', 'rad_etildi')->count();
-        $arizalar_korilmagan = Application::where('holat', 'korib_chiqilmoqda' )->count();
+        $arizalar_korilmagan = Application::where('holat', 'korib_chiqilmoqda')->count();
 
         $arizalar = Application::where('holat', 'korib_chiqilmoqda')->orderBy('created_at', 'desc')->paginate(10);
         $arizalar = $this->filterArizalar($arizalar);
@@ -233,7 +278,7 @@ class ApplicationController extends Controller
         ]);
     }
 
-     /**
+    /**
      * Boshqaruv panelida arizani qidirish controlleri
      */
     public function arizalarniQidrish(Request $request)
@@ -289,21 +334,21 @@ class ApplicationController extends Controller
             $ariza->fakultet = 'Gumanitar fanlar fakulteti';
         } elseif ($ariza->fakultet === 'pedagogika') {
             $ariza->fakultet = "Pedagogika fakulteti";
-        }elseif ($ariza->fakultet === 'fizika') {
+        } elseif ($ariza->fakultet === 'fizika') {
             $ariza->fakultet = "Fizika va kimyo fakulteti";
-        }elseif ($ariza->fakultet === 'boshlangich') {
+        } elseif ($ariza->fakultet === 'boshlangich') {
             $ariza->fakultet = "Boshlang'ich ta'lim fakulteti";
-        }elseif ($ariza->fakultet === 'maktabgacha') {
+        } elseif ($ariza->fakultet === 'maktabgacha') {
             $ariza->fakultet = "Maktabgacha ta’lim fakulteti";
-        }elseif ($ariza->fakultet === 'turizm') {
+        } elseif ($ariza->fakultet === 'turizm') {
             $ariza->fakultet = "Turizm fakulteti";
-        }elseif ($ariza->fakultet === 'tabiiy') {
+        } elseif ($ariza->fakultet === 'tabiiy') {
             $ariza->fakultet = "Tabiiy fanlar fakulteti";
-        }elseif ($ariza->fakultet === 'matematika') {
+        } elseif ($ariza->fakultet === 'matematika') {
             $ariza->fakultet = "Matematika va informatika fakulteti";
-        }elseif ($ariza->fakultet === 'sport') {
+        } elseif ($ariza->fakultet === 'sport') {
             $ariza->fakultet = "Sport va chaqiriqqacha harbiy ta’lim fakulteti";
-        }elseif ($ariza->fakultet === 'sanatshunoslik') {
+        } elseif ($ariza->fakultet === 'sanatshunoslik') {
             $ariza->fakultet = "San'atshunoslik fakulteti";
         } else {
             $ariza->fakultet = "Fakulteti topilmadi!";
@@ -312,83 +357,83 @@ class ApplicationController extends Controller
         // Yo'nalishlarni aniqlash
         if ($ariza->yonalish === 'ozbek-tilshunosligi-yonalishi') {
             $ariza->yonalish = "O‘zbek tilshunosligi yo'nalishi";
-        }elseif($ariza->yonalish === 'ozbek-adabiyotshunosligi-yonalishi') {
+        } elseif ($ariza->yonalish === 'ozbek-adabiyotshunosligi-yonalishi') {
             $ariza->yonalish = "O‘zbek adabiyotshunosligi yo'nalishi";
-        }elseif($ariza->yonalish === 'fakultetlararo-rus-tili-yonalishi') {
+        } elseif ($ariza->yonalish === 'fakultetlararo-rus-tili-yonalishi') {
             $ariza->yonalish = "Fakultetlararo rus tili yo'nalishi";
-        }elseif($ariza->yonalish === 'rus-adabiyoti-va-talim-metodikasi-yonalishi') {
+        } elseif ($ariza->yonalish === 'rus-adabiyoti-va-talim-metodikasi-yonalishi') {
             $ariza->yonalish = "Rus adabiyoti va ta'lim metodikasi yo'nalishi";
-        }elseif($ariza->yonalish === 'fakultetlar-aro-ijtimoiy-fanlar-yonalishi') {
+        } elseif ($ariza->yonalish === 'fakultetlar-aro-ijtimoiy-fanlar-yonalishi') {
             $ariza->yonalish = "Fakultetlar aro Ijtimoiy fanlar yo'nalishi";
-        }elseif($ariza->yonalish === 'ozbekiston-tarixi-yonalishi') {
+        } elseif ($ariza->yonalish === 'ozbekiston-tarixi-yonalishi') {
             $ariza->yonalish = "O'zbekiston tarixi yo'nalishi";
-        }elseif($ariza->yonalish === 'jahon-tarixi-yonalishi') {
+        } elseif ($ariza->yonalish === 'jahon-tarixi-yonalishi') {
             $ariza->yonalish = "Jahon tarixi yo'nalishi";
-        }elseif($ariza->yonalish === 'milliy-goya-manaviyat-asoslari-va-huquq-talimi-yonalishi') {
+        } elseif ($ariza->yonalish === 'milliy-goya-manaviyat-asoslari-va-huquq-talimi-yonalishi') {
             $ariza->yonalish = "Milliy g'oya, ma'naviyat asoslari va huquq ta'limi yo'nalishi";
-        }elseif($ariza->yonalish === 'rus-tili-va-talim-metodikasi-yonalishi') {
+        } elseif ($ariza->yonalish === 'rus-tili-va-talim-metodikasi-yonalishi') {
             $ariza->yonalish = "Rus tili va ta'lim metodikasi yo'nalishi";
-        }elseif($ariza->yonalish === 'pedagogika-yonalishi') {
+        } elseif ($ariza->yonalish === 'pedagogika-yonalishi') {
             $ariza->yonalish = "Pedagogika yo'nalishi";
-        }elseif($ariza->yonalish === 'maktab-menejmenti-yonalishi') {
+        } elseif ($ariza->yonalish === 'maktab-menejmenti-yonalishi') {
             $ariza->yonalish = "Maktab menejmenti yo'nalishi";
-        }elseif($ariza->yonalish === 'psixologiya-yonalishi') {
+        } elseif ($ariza->yonalish === 'psixologiya-yonalishi') {
             $ariza->yonalish = "Psixologiya yo'nalishi";
-        }elseif($ariza->yonalish === 'umumiy-pedagogika-yonalishi') {
+        } elseif ($ariza->yonalish === 'umumiy-pedagogika-yonalishi') {
             $ariza->yonalish = "Umumiy pedagogika yo'nalishi";
-        }elseif($ariza->yonalish === 'maxsus-pedagogika-yonalishi') {
+        } elseif ($ariza->yonalish === 'maxsus-pedagogika-yonalishi') {
             $ariza->yonalish = "Maxsus pedagogika yo'nalishi";
-        }elseif($ariza->yonalish === 'fizika-yonalishi') {
+        } elseif ($ariza->yonalish === 'fizika-yonalishi') {
             $ariza->yonalish = "Fizika yo'nalishi";
-        }elseif($ariza->yonalish === 'kimyo-yonalishi') {
+        } elseif ($ariza->yonalish === 'kimyo-yonalishi') {
             $ariza->yonalish = "Kimyo yo'nalishi";
-        }elseif($ariza->yonalish === 'fizika-va-astronomiya-oqitish-metodikasi-yonalishi') {
+        } elseif ($ariza->yonalish === 'fizika-va-astronomiya-oqitish-metodikasi-yonalishi') {
             $ariza->yonalish = "Fizika va astronomiya o'qitish metodikasi yo'nalishi";
-        }elseif($ariza->yonalish === 'ilmiy-va-metodologik-kimyo-yonalishi') {
+        } elseif ($ariza->yonalish === 'ilmiy-va-metodologik-kimyo-yonalishi') {
             $ariza->yonalish = "Ilmiy va metodologik kimyo yo'nalishi";
-        }elseif($ariza->yonalish === 'boshlangich-talim-nazariyasi') {
+        } elseif ($ariza->yonalish === 'boshlangich-talim-nazariyasi') {
             $ariza->yonalish = "Boshlang'ich ta'lim nazariyasi";
-        }elseif($ariza->yonalish === 'boshlangich-talim-metodikasi-yonalishi') {
+        } elseif ($ariza->yonalish === 'boshlangich-talim-metodikasi-yonalishi') {
             $ariza->yonalish = "Boshlang'ich ta'lim metodikasi yo'nalishi";
-        }elseif($ariza->yonalish === 'maktabgacha-talim-metodikasi-yonalishi') {
+        } elseif ($ariza->yonalish === 'maktabgacha-talim-metodikasi-yonalishi') {
             $ariza->yonalish = "Maktabgacha ta'lim metodikasi yo'nalishi";
-        }elseif($ariza->yonalish === 'bolalar-sporti-yonalishi') {
+        } elseif ($ariza->yonalish === 'bolalar-sporti-yonalishi') {
             $ariza->yonalish = "Bolalar sporti yo'nalishi";
-        }elseif($ariza->yonalish === 'umumkasbiy-va-ihtisoslik-fanlari-yonalishi') {
+        } elseif ($ariza->yonalish === 'umumkasbiy-va-ihtisoslik-fanlari-yonalishi') {
             $ariza->yonalish = "Umumkasbiy va ihtisoslik fanlari yo'nalishi";
-        }elseif($ariza->yonalish === 'ingliz-tili-yonalishi') {
+        } elseif ($ariza->yonalish === 'ingliz-tili-yonalishi') {
             $ariza->yonalish = "Ingliz tili yo'nalishi";
-        }elseif($ariza->yonalish === 'nemis-tili-yonalishi') {
+        } elseif ($ariza->yonalish === 'nemis-tili-yonalishi') {
             $ariza->yonalish = "Nemis tili yo'nalishi";
-        }elseif($ariza->yonalish === 'fakultetlararo-chet-tillar-yonalishi') {
+        } elseif ($ariza->yonalish === 'fakultetlararo-chet-tillar-yonalishi') {
             $ariza->yonalish = "Fakultetlararo chet tillar yo'nalishi";
-        }elseif($ariza->yonalish === 'biologiya-yonalishi') {
+        } elseif ($ariza->yonalish === 'biologiya-yonalishi') {
             $ariza->yonalish = "Biologiya yo'nalishi";
-        }elseif($ariza->yonalish === 'geografiya-yonalishi') {
+        } elseif ($ariza->yonalish === 'geografiya-yonalishi') {
             $ariza->yonalish = "Geografiya yo'nalishi";
-        }elseif($ariza->yonalish === 'genetika-va-evolutsion-biologiya-yonalishi') {
+        } elseif ($ariza->yonalish === 'genetika-va-evolutsion-biologiya-yonalishi') {
             $ariza->yonalish = "Genetika va evolutsion biologiya yo'nalishi";
-        }elseif($ariza->yonalish === 'informatika-va-axborot-texnoligiyalari-yonalishi') {
+        } elseif ($ariza->yonalish === 'informatika-va-axborot-texnoligiyalari-yonalishi') {
             $ariza->yonalish = "Informatika va axborot texnoligiyalari yo'nalishi";
-        }elseif($ariza->yonalish === 'algebra-va-matematik-analiz-yonalishi') {
+        } elseif ($ariza->yonalish === 'algebra-va-matematik-analiz-yonalishi') {
             $ariza->yonalish = "Algebra va matematik analiz yo'nalishi";
-        }elseif($ariza->yonalish === 'matematika-oqitish-metodikasi-va-geometriya-yonalishi') {
+        } elseif ($ariza->yonalish === 'matematika-oqitish-metodikasi-va-geometriya-yonalishi') {
             $ariza->yonalish = "Matematika o'qitish metodikasi va geometriya yo'nalishi";
-        }elseif($ariza->yonalish === 'informatika-oqitish-metodikasi-yonalishi') {
+        } elseif ($ariza->yonalish === 'informatika-oqitish-metodikasi-yonalishi') {
             $ariza->yonalish = "Informatika o'qitish metodikasi yo'nalishi";
-        }elseif($ariza->yonalish === 'texnologik-talim-yonalishi') {
+        } elseif ($ariza->yonalish === 'texnologik-talim-yonalishi') {
             $ariza->yonalish = "Texnologik talim yo'nalishi";
-        }elseif($ariza->yonalish === 'jismoniy-madaniyat-metodikasi-yonalishi') {
+        } elseif ($ariza->yonalish === 'jismoniy-madaniyat-metodikasi-yonalishi') {
             $ariza->yonalish = "Jismoniy madaniyat metodikasi yo'nalishi";
-        }elseif($ariza->yonalish === 'jismoniy-madaniyat-nazariyasi') {
+        } elseif ($ariza->yonalish === 'jismoniy-madaniyat-nazariyasi') {
             $ariza->yonalish = "Jismoniy madaniyat nazariyasi";
-        }elseif($ariza->yonalish === 'tasviriy-sanat-va-dizayn-yonalishi') {
+        } elseif ($ariza->yonalish === 'tasviriy-sanat-va-dizayn-yonalishi') {
             $ariza->yonalish = "Tasviriy sanat va dizayn yo'nalishi";
-        }elseif($ariza->yonalish === 'muhandislik-va-kompyuter-grafikasi-yonalishi') {
+        } elseif ($ariza->yonalish === 'muhandislik-va-kompyuter-grafikasi-yonalishi') {
             $ariza->yonalish = "Muhandislik va kompyuter grafikasi yo'nalishi";
-        }elseif($ariza->yonalish === 'musiqa-yonalishi') {
+        } elseif ($ariza->yonalish === 'musiqa-yonalishi') {
             $ariza->yonalish = "Musiqa yo'nalishi";
-        }else{
+        } else {
             $ariza->yonalish = "Yo'nalish topilmadi!";
         }
 
@@ -400,7 +445,7 @@ class ApplicationController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -411,13 +456,13 @@ class ApplicationController extends Controller
         ]);
 
         return redirect()->route('dashboard')->with('toast', "Yangi admin ro'yxatga qo'shildi!");
-
     }
 
-    public function adminlar(){
-            $adminlar = User::paginate(10);
+    public function adminlar()
+    {
+        $adminlar = User::paginate(10);
 
-            return  view('adminlar')->with('adminlar', $adminlar);
+        return  view('adminlar')->with('adminlar', $adminlar);
     }
 
     public function adminDelete($id)
@@ -443,21 +488,21 @@ class ApplicationController extends Controller
             $ariza['fakultet'] = 'Gumanitar fanlar fakulteti';
         } elseif ($ariza['fakultet'] === 'pedagogika') {
             $ariza['fakultet'] = "Pedagogika fakulteti";
-        }elseif ($ariza['fakultet'] === 'fizika') {
+        } elseif ($ariza['fakultet'] === 'fizika') {
             $ariza['fakultet'] = "Fizika va kimyo fakulteti";
-        }elseif ($ariza['fakultet'] === 'boshlangich') {
+        } elseif ($ariza['fakultet'] === 'boshlangich') {
             $ariza['fakultet'] = "Boshlang'ich ta'lim fakulteti";
-        }elseif ($ariza['fakultet'] === 'maktabgacha') {
+        } elseif ($ariza['fakultet'] === 'maktabgacha') {
             $ariza['fakultet'] = "Maktabgacha ta’lim fakulteti";
-        }elseif ($ariza['fakultet'] === 'turizm') {
+        } elseif ($ariza['fakultet'] === 'turizm') {
             $ariza['fakultet'] = "Turizm fakulteti";
-        }elseif ($ariza['fakultet'] === 'tabiiy') {
+        } elseif ($ariza['fakultet'] === 'tabiiy') {
             $ariza['fakultet'] = "Tabiiy fanlar fakulteti";
-        }elseif ($ariza['fakultet'] === 'matematika') {
+        } elseif ($ariza['fakultet'] === 'matematika') {
             $ariza['fakultet'] = "Matematika va informatika fakulteti";
-        }elseif ($ariza['fakultet'] === 'sport') {
+        } elseif ($ariza['fakultet'] === 'sport') {
             $ariza['fakultet'] = "Sport va chaqiriqqacha harbiy ta’lim fakulteti";
-        }elseif ($ariza['fakultet'] === 'sanatshunoslik') {
+        } elseif ($ariza['fakultet'] === 'sanatshunoslik') {
             $ariza['fakultet'] = "San'atshunoslik fakulteti";
         } else {
             $ariza['fakultet'] = "Fakulteti topilmadi!";
@@ -466,109 +511,109 @@ class ApplicationController extends Controller
         // Yo'nalishlarni aniqlash
         if ($ariza['yonalish'] === 'ozbek-tilshunosligi-yonalishi') {
             $ariza['yonalish'] = "O‘zbek tilshunosligi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'ozbek-adabiyotshunosligi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'ozbek-adabiyotshunosligi-yonalishi') {
             $ariza['yonalish'] = "O‘zbek adabiyotshunosligi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'fakultetlararo-rus-tili-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'fakultetlararo-rus-tili-yonalishi') {
             $ariza['yonalish'] = "Fakultetlararo rus tili yo'nalishi";
-        }elseif($ariza['yonalish'] === 'rus-adabiyoti-va-talim-metodikasi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'rus-adabiyoti-va-talim-metodikasi-yonalishi') {
             $ariza['yonalish'] = "Rus adabiyoti va ta'lim metodikasi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'fakultetlar-aro-ijtimoiy-fanlar-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'fakultetlar-aro-ijtimoiy-fanlar-yonalishi') {
             $ariza['yonalish'] = "Fakultetlar aro Ijtimoiy fanlar yo'nalishi";
-        }elseif($ariza['yonalish'] === 'ozbekiston-tarixi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'ozbekiston-tarixi-yonalishi') {
             $ariza['yonalish'] = "O'zbekiston tarixi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'jahon-tarixi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'jahon-tarixi-yonalishi') {
             $ariza['yonalish'] = "Jahon tarixi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'milliy-goya-manaviyat-asoslari-va-huquq-talimi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'milliy-goya-manaviyat-asoslari-va-huquq-talimi-yonalishi') {
             $ariza['yonalish'] = "Milliy g'oya, ma'naviyat asoslari va huquq ta'limi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'rus-tili-va-talim-metodikasi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'rus-tili-va-talim-metodikasi-yonalishi') {
             $ariza['yonalish'] = "Rus tili va ta'lim metodikasi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'pedagogika-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'pedagogika-yonalishi') {
             $ariza['yonalish'] = "Pedagogika yo'nalishi";
-        }elseif($ariza['yonalish'] === 'maktab-menejmenti-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'maktab-menejmenti-yonalishi') {
             $ariza['yonalish'] = "Maktab menejmenti yo'nalishi";
-        }elseif($ariza['yonalish'] === 'psixologiya-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'psixologiya-yonalishi') {
             $ariza['yonalish'] = "Psixologiya yo'nalishi";
-        }elseif($ariza['yonalish'] === 'umumiy-pedagogika-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'umumiy-pedagogika-yonalishi') {
             $ariza['yonalish'] = "Umumiy pedagogika yo'nalishi";
-        }elseif($ariza['yonalish'] === 'maxsus-pedagogika-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'maxsus-pedagogika-yonalishi') {
             $ariza['yonalish'] = "Maxsus pedagogika yo'nalishi";
-        }elseif($ariza['yonalish'] === 'fizika-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'fizika-yonalishi') {
             $ariza['yonalish'] = "Fizika yo'nalishi";
-        }elseif($ariza['yonalish'] === 'kimyo-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'kimyo-yonalishi') {
             $ariza['yonalish'] = "Kimyo yo'nalishi";
-        }elseif($ariza['yonalish'] === 'fizika-va-astronomiya-oqitish-metodikasi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'fizika-va-astronomiya-oqitish-metodikasi-yonalishi') {
             $ariza['yonalish'] = "Fizika va astronomiya o'qitish metodikasi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'ilmiy-va-metodologik-kimyo-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'ilmiy-va-metodologik-kimyo-yonalishi') {
             $ariza['yonalish'] = "Ilmiy va metodologik kimyo yo'nalishi";
-        }elseif($ariza['yonalish'] === 'boshlangich-talim-nazariyasi') {
+        } elseif ($ariza['yonalish'] === 'boshlangich-talim-nazariyasi') {
             $ariza['yonalish'] = "Boshlang'ich ta'lim nazariyasi";
-        }elseif($ariza['yonalish'] === 'boshlangich-talim-metodikasi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'boshlangich-talim-metodikasi-yonalishi') {
             $ariza['yonalish'] = "Boshlang'ich ta'lim metodikasi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'maktabgacha-talim-metodikasi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'maktabgacha-talim-metodikasi-yonalishi') {
             $ariza['yonalish'] = "Maktabgacha ta'lim metodikasi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'bolalar-sporti-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'bolalar-sporti-yonalishi') {
             $ariza['yonalish'] = "Bolalar sporti yo'nalishi";
-        }elseif($ariza['yonalish'] === 'umumkasbiy-va-ihtisoslik-fanlari-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'umumkasbiy-va-ihtisoslik-fanlari-yonalishi') {
             $ariza['yonalish'] = "Umumkasbiy va ihtisoslik fanlari yo'nalishi";
-        }elseif($ariza['yonalish'] === 'ingliz-tili-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'ingliz-tili-yonalishi') {
             $ariza['yonalish'] = "Ingliz tili yo'nalishi";
-        }elseif($ariza['yonalish'] === 'nemis-tili-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'nemis-tili-yonalishi') {
             $ariza['yonalish'] = "Nemis tili yo'nalishi";
-        }elseif($ariza['yonalish'] === 'fakultetlararo-chet-tillar-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'fakultetlararo-chet-tillar-yonalishi') {
             $ariza['yonalish'] = "Fakultetlararo chet tillar yo'nalishi";
-        }elseif($ariza['yonalish'] === 'biologiya-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'biologiya-yonalishi') {
             $ariza['yonalish'] = "Biologiya yo'nalishi";
-        }elseif($ariza['yonalish'] === 'geografiya-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'geografiya-yonalishi') {
             $ariza['yonalish'] = "Geografiya yo'nalishi";
-        }elseif($ariza['yonalish'] === 'genetika-va-evolutsion-biologiya-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'genetika-va-evolutsion-biologiya-yonalishi') {
             $ariza['yonalish'] = "Genetika va evolutsion biologiya yo'nalishi";
-        }elseif($ariza['yonalish'] === 'informatika-va-axborot-texnoligiyalari-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'informatika-va-axborot-texnoligiyalari-yonalishi') {
             $ariza['yonalish'] = "Informatika va axborot texnoligiyalari yo'nalishi";
-        }elseif($ariza['yonalish'] === 'algebra-va-matematik-analiz-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'algebra-va-matematik-analiz-yonalishi') {
             $ariza['yonalish'] = "Algebra va matematik analiz yo'nalishi";
-        }elseif($ariza['yonalish'] === 'matematika-oqitish-metodikasi-va-geometriya-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'matematika-oqitish-metodikasi-va-geometriya-yonalishi') {
             $ariza['yonalish'] = "Matematika o'qitish metodikasi va geometriya yo'nalishi";
-        }elseif($ariza['yonalish'] === 'informatika-oqitish-metodikasi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'informatika-oqitish-metodikasi-yonalishi') {
             $ariza['yonalish'] = "Informatika o'qitish metodikasi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'texnologik-talim-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'texnologik-talim-yonalishi') {
             $ariza['yonalish'] = "Texnologik talim yo'nalishi";
-        }elseif($ariza['yonalish'] === 'jismoniy-madaniyat-metodikasi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'jismoniy-madaniyat-metodikasi-yonalishi') {
             $ariza['yonalish'] = "Jismoniy madaniyat metodikasi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'jismoniy-madaniyat-nazariyasi') {
+        } elseif ($ariza['yonalish'] === 'jismoniy-madaniyat-nazariyasi') {
             $ariza['yonalish'] = "Jismoniy madaniyat nazariyasi";
-        }elseif($ariza['yonalish'] === 'tasviriy-sanat-va-dizayn-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'tasviriy-sanat-va-dizayn-yonalishi') {
             $ariza['yonalish'] = "Tasviriy sanat va dizayn yo'nalishi";
-        }elseif($ariza['yonalish'] === 'muhandislik-va-kompyuter-grafikasi-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'muhandislik-va-kompyuter-grafikasi-yonalishi') {
             $ariza['yonalish'] = "Muhandislik va kompyuter grafikasi yo'nalishi";
-        }elseif($ariza['yonalish'] === 'musiqa-yonalishi') {
+        } elseif ($ariza['yonalish'] === 'musiqa-yonalishi') {
             $ariza['yonalish'] = "Musiqa yo'nalishi";
-        }else{
+        } else {
             $ariza['yonalish'] = "Yo'nalish topilmadi!";
         }
 
         if ($ariza['mezon'] == 'mehribonlik_uylari_tarbiyalanuvchilari') {
             $ariza['mezon'] = "“Mehribonlik uylari” tarbiyalanuvchilari, yetim va ota-ona qaramog‘idan mahrum bo‘lgan talabalar";
-        } elseif($ariza['mezon'] == 'bir_oiladan') {
+        } elseif ($ariza['mezon'] == 'bir_oiladan') {
             $ariza['mezon'] = "Bir oiladan bakalavriat bosqichi kunduzgi ta’lim shaklida ikki yoki undan ortiq to‘lov-shartnoma asosida o‘qiyotgan oilalar farzandlari";
-        } elseif($ariza['mezon'] == 'nogironligi_bor') {
+        } elseif ($ariza['mezon'] == 'nogironligi_bor') {
             $ariza['mezon'] = "I va II guruh nogironligi bo‘lgan talabalar";
-        } elseif($ariza['mezon'] == 'ijtimoiy_himoya') {
+        } elseif ($ariza['mezon'] == 'ijtimoiy_himoya') {
             $ariza['mezon'] =  "“Ijtimoiy himoya yagona reyestri”, “Temir daftar” va “Ayollar daftari”ga kiritilgan ijtimoiy himoyaga muhtoj oilalarning farzandlari hamda “Yoshlar daftari”da turadigan talabalar";
-        } elseif($ariza['mezon'] == 'xalqaro_fan_olimpiadalari') {
+        } elseif ($ariza['mezon'] == 'xalqaro_fan_olimpiadalari') {
             $ariza['mezon'] = "Xalqaro fan olimpiadalari, Oliy ta’lim, fan va innovatsiyalar vazirligi tomonidan o‘tkaziladigan respublika fan olimpiadalarida g‘olib bo‘lgan talabalar";
-        }elseif($ariza['mezon'] == 'yil_talabasi') {
+        } elseif ($ariza['mezon'] == 'yil_talabasi') {
             $ariza['mezon'] = "“Yil talabasi” va “Talabalar teatr studiyalari” ko‘rik tanlovlarining respublika bosqichida g‘olib bo‘lgan talabalar";
-        }elseif($ariza['mezon'] == 'otm_talabalari') {
+        } elseif ($ariza['mezon'] == 'otm_talabalari') {
             $ariza['mezon'] = "OTM talabalari o‘rtasida o‘tkazilgan “Zakovat” intellektual o‘yinining respublika bosqichida g‘oliblikni qo‘lga kiritgan talabalar";
-        }elseif($ariza['mezon'] == 'kengash_raisi') {
+        } elseif ($ariza['mezon'] == 'kengash_raisi') {
             $ariza['mezon'] = "Talabalar turar joyida talabalar kengashi raisi, qavat sardori bo‘lgan talabalar";
         }
 
         if ($ariza['holat'] == "korib_chiqilmoqda") {
-           $ariza['holat'] = "Ko'rib chiqilmoqda";
-        } elseif($ariza['holat'] == "maqullandi") {
+            $ariza['holat'] = "Ko'rib chiqilmoqda";
+        } elseif ($ariza['holat'] == "maqullandi") {
             $ariza['holat'] = "Ariza maqullangan!";
-        } elseif($ariza['holat'] == "rad_etildi") {
+        } elseif ($ariza['holat'] == "rad_etildi") {
             $ariza['holat'] = "Ariza rad etilgan!";
         }
 
@@ -606,9 +651,4 @@ class ApplicationController extends Controller
         // You can redirect or return an error message
         return redirect()->back()->with('error', 'Invalid application ID');
     }
-
-
-
-
-
 }

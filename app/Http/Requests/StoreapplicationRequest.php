@@ -36,7 +36,7 @@ class StoreapplicationRequest extends FormRequest
                 'min:2',
                 'max:25',
             ],
-            'passport_seriya' => 'required|min:4|max:25',
+            'passport_seriya' => 'required|min:1|max:4',
             'passport_berilgan_sana' => 'required|min:1|max:10',
             'passport_kim_bergan' => 'required|min:3|max:100',
             'father_about' => 'required|min:5|max:500',

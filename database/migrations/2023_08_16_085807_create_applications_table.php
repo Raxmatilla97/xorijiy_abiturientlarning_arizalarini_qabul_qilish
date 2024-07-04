@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('passport_number'); // Passport nomeri
             $table->string('passport_berilgan_sana'); // Passport berilgan sana
             $table->string('passport_kim_bergan'); // Passportni bergan idora nomi
-            $table->string('father_about'); // Otasi haqida ma'lumot
-            $table->string('mather_about'); // Onasi haqida ma'lumot
-            $table->string('about_health'); // Sog'lig'i haqida
+            $table->text('father_about'); // Otasi haqida ma'lumot
+            $table->text('mather_about'); // Onasi haqida ma'lumot
+            $table->text('about_health'); // Sog'lig'i haqida
             $table->string('residence_to_passport'); // Fuqoroligi haqida
             $table->string('passport_file_upload');  // Passport nusxasini yuklasj
             $table->string('ignition_code'); // Ta'lim yo'nalishi shifri
@@ -37,6 +37,16 @@ return new class extends Migration
             $table->string('education_level'); // Ma'lumoti (o'rta maxsus, bakalvr, oliy)
             $table->string('education_level_file'); // Ma'lumotliligini tasdiqlovchi xujjat
             $table->string('lang_prompt'); // Suxbatni qaysi tilda olib borish bo'yicha
+
+            $table->string('name_of_educational'); // Ta’lim muassasasining nomi
+            $table->string('year_of_educational'); // Ta’lim muassasasida nechanchi yilda bitirganligi
+            $table->string('direction_of_educational'); // Ta’lim muassasasida qaysi yo'nalishni bitirganligi
+            $table->string('seriya_of_educational'); // Ta’lim muassasasida yo'nalish seriyasi
+            $table->string('number_of_educational'); // Ta’lim muassasasida yo'nalish raqami
+            $table->string('language_i_know'); // Qaysi tillarnio bilishi
+            $table->string('my_language_level'); // Qaysi darajada bilishi
+            $table->text('where_i_worked'); // Qayerda ishlaganligi
+
             $table->unsignedBigInteger('tekshirgan_user_id')->nullable(); // Arizani tekshirgan user
             $table->timestamps();
             $table->foreign('tekshirgan_user_id')->references('id')->on('users');

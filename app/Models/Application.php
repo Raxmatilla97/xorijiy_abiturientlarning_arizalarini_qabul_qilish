@@ -37,8 +37,16 @@ class Application extends Model
         'brith_day',
         'brith_moth',
         'brith_year',
+        'name_of_educational',
+        'year_of_educational',
+        'direction_of_educational',
+        'seriya_of_educational',
+        'number_of_educational',
+        'language_i_know',
+        'my_language_level',
+        'where_i_worked',
 
-        // 22
+        // 30
     ];
 
     protected $dates = ['deleted_at'];
