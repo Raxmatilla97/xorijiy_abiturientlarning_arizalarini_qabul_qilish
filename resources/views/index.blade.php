@@ -189,7 +189,7 @@
                                             <div class="col-span-1">
                                                 <select id="brith_year" name="brith_year" required
                                                     class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('brith_year')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
-                                                    <option value="">Yilni tanlang</option>
+                                                    <option value="">Yil ni tanlang</option>
                                                     @for ($year = 1975; $year <= 2015; $year++)
                                                         <option value="{{ $year }}"
                                                             @if (old('brith_year') == $year) selected @endif>
@@ -601,6 +601,82 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <hr>
+
+                            <div class="mt-6">
+                                <label for="name_of_educational"
+                                    class="block text-sm font-medium @if ($errors->has('name_of_educational')) text-red-700 @else text-gray-700 @endif">
+                                Qaysi ta'lim muassasasini bitirgansiz?
+                                </label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+
+                                    <input type="text" id="name_of_educational" name="name_of_educational"
+                                        value="{{ old('name_of_educational') }}" required
+                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('name_of_educational')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="O'zingiz bitirgan ta'lim muassasasini nomini yozing...">
+                                </div>
+                                @if ($errors->has('name_of_educational'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('name_of_educational') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="mt-6">
+                                <label for="ignition_code"
+                                    class="block text-sm font-medium @if ($errors->has('ignition_code')) text-red-700 @else text-gray-700 @endif">Ta'lim muassasasini qaysi yili va qaysi yo'nalishda bitirgansiz?</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="grid grid-cols-1 gap-4">
+                                            <div class="col-span-1">
+                                                <select id="year_of_educational" name="year_of_educational" required
+                                                    class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('year_of_educational')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif">
+                                                    <option value="">Bitirgan yilizni tanlang</option>
+                                                    @for ($year = 1975; $year <= 2024; $year++)
+                                                        <option value="{{ $year }}"
+                                                            @if (old('year_of_educational') == $year) selected @endif>
+                                                            {{ $year }}</option>
+                                                    @endfor
+                                                </select>
+
+
+                                                @if ($errors->has('year_of_educational'))
+                                                    <p class="mt-2 text-sm text-red-600">
+                                                        @php
+                                                            $i = 1;
+                                                        @endphp
+                                                        @foreach ($errors->get('year_of_educational') as $message)
+                                                            {{ $i++ }}. {{ $message }}<br>
+                                                        @endforeach
+                                                    </p>
+                                                @endif
+                                            </div>
+
+                                        </div>
+                                        <input type="text" id="direction_of_educational" name="direction_of_educational" required
+                                            value="{{ old('direction_of_educational') }}"
+                                            class="w-full md:w-auto pl-5 rounded-md text-sm @if ($errors->has('direction_of_educational')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                            placeholder="Yo'nalish nomini yozing">
+                                    </div>
+
+                                </div>
+                                @if ($errors->has('direction_of_educational'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('direction_of_educational')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+                            </div>
+
 
                             <div class="mt-9">
 

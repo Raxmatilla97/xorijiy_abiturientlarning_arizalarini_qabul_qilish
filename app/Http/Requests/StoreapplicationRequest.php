@@ -54,7 +54,16 @@ class StoreapplicationRequest extends FormRequest
             'brith_day' => 'required',
             'brith_moth' => 'required',
             'brith_year' => 'required',
-            'passport_place_info' => 'required'
+            'passport_place_info' => 'required',
+
+            'name_of_educational' => 'required',
+            'year_of_educational' => 'required',
+            'direction_of_educational' => 'required',
+            'seriya_of_educational' => 'required',
+            'number_of_educational' => 'required',
+            'language_i_know' => 'required',
+            'my_language_level' => 'required',
+            'where_i_worked' => 'required',
 
 
         ];
@@ -144,12 +153,21 @@ class StoreapplicationRequest extends FormRequest
             // Lang prompt  validation messages
             'lang_prompt.required' => "Suxbatni qaysi tilda olib borilishini tanlashingiz kerak.",
 
-               // Lang prompt  validation messages
+            // Lang prompt  validation messages
             'ignition_name.required' => "Ta'lim yo'nalish nomini yozishingiz kerak.",
 
             'brith_day.required' => "Tug'ulgan kunizni yozishingiz kerak.",
             'brith_moth.required' => "Tug'ulgan oyizni tanlashingiz kerak.",
             'brith_year.required' => "Tug'ulgan yilingizni tanlashingiz kerak.",
+
+            'name_of_educational' => "Ta'lim muassasasining nomini yozing.",
+            'year_of_educational' => "Ta'lim muassasasini qaysi yili bitirganingizni yozing.",
+            'direction_of_educational' => "Ta'lim muassasasini qaysi yo'nalish bo'yicha tamomlaganizni yozing.",
+            'seriya_of_educational' => 'Diplom seriyasini yozing.',
+            'number_of_educational' => 'Diplom raqamini yozing',
+            'language_i_know' => 'Biladigan xorijiy tillarizni yozing.',
+            'my_language_level' => 'Xorijiy tillarni qay darajada bilishingizni yozing.',
+            'where_i_worked' => "Ushbu oliy ta’lim muassasasiga kirish oldidan ishlagan tashkilot nomini yozing.",
         ];
     }
 }
