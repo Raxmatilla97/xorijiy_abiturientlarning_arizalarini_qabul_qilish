@@ -62,8 +62,8 @@ class StoreapplicationRequest extends FormRequest
             'seriya_of_educational' => 'required',
             'number_of_educational' => 'required',
             'language_i_know' => 'required',
-            'my_language_level' => 'required',
-            'where_i_worked' => 'required',
+            // 'my_language_level' => 'required',
+            // 'where_i_worked' => 'required',
 
 
         ];
@@ -166,8 +166,8 @@ class StoreapplicationRequest extends FormRequest
             'seriya_of_educational' => 'Diplom seriyasini yozing.',
             'number_of_educational' => 'Diplom raqamini yozing',
             'language_i_know' => 'Biladigan xorijiy tillarizni yozing.',
-            'my_language_level' => 'Xorijiy tillarni qay darajada bilishingizni yozing.',
-            'where_i_worked' => "Ushbu oliy ta’lim muassasasiga kirish oldidan ishlagan tashkilot nomini yozing.",
+            // 'my_language_level' => 'Xorijiy tillarni qay darajada bilishingizni yozing.',
+            // 'where_i_worked' => "Ushbu oliy ta’lim muassasasiga kirish oldidan ishlagan tashkilot nomini yozing.",
         ];
     }
 }

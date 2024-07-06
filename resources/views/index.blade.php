@@ -299,6 +299,84 @@
                             </div>
 
                             <div class="mt-6">
+                                <label for="phone_number"
+                                    class="block text-sm font-medium @if ($errors->has('telefon')) text-red-700 @else text-gray-700 @endif">Bog'lanish
+                                    uchun telefon raqamiz (shaxsiy)</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+                                    <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
+                                        <svg class="h-5 w-5 @if ($errors->has('telefon')) text-red-400 @else text-gray-400 @endif"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M19.5 9.75a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 011.5 0v2.69l4.72-4.72a.75.75 0 111.06 1.06L16.06 9h2.69a.75.75 0 01.75.75z"
+                                                clip-rule="evenodd" />
+                                            <path fill-rule="evenodd"
+                                                d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+                                                clip-rule="evenodd" />uni
+                                        </svg>
+                                    </div>
+                                    <input type="number" id="phone_number" required
+                                        onkeydown="if (event.key === '-' || event.key === ',' || event.key === 'E' || event.key === 'e' || event.key === '.') event.preventDefault();"
+                                        name="telefon" value="{{ old('telefon') }}"
+                                        class="w-full pl-10 rounded-md text-sm @if ($errors->has('telefon')) border-red-300
+                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="+998(00 000 00 00)">
+                                </div>
+                                @if ($errors->has('telefon'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('telefon') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
+                                    </p>
+                                @endif
+                            </div>
+
+
+                            <div class="mt-6">
+                                <label for="residence_to_passport"
+                                    class="block text-sm font-medium @if ($errors->has('residence_to_passport')) text-red-700 @else text-gray-700 @endif">Passport
+                                    bo'yicha doyimiy yashash manzilingiz</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+
+                                    <input type="text" id="residence_to_passport" name="residence_to_passport"
+                                        required value="{{ old('residence_to_passport') }}"
+                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('residence_to_passport')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="Viloyat, Shahar(Tuman)">
+
+                                </div>
+                                @if ($errors->has('residence_to_passport'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('residence_to_passport')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="mt-4 bg-gray-100 p-4 rounded-md">
+                                <label for="passport_file_upload" class="block text-sm font-medium ">Passportingiz
+                                    suratini yuklang (Iloji bo'lsa bir suratda oldi va orqa taraflari bilan)</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+                                    <input type="file" id="passport_file_upload" name="passport_file_upload"
+                                        required
+                                        class="w-full pl-5 rounded-md mt-4 text-sm border-gray-300 focus:border-green-500 focus:ring-green-500">
+                                </div>
+                                @if ($errors->has('passport_file_upload'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @php
+                                            $i = 1;
+                                        @endphp
+                                        @foreach ($errors->get('passport_file_upload') as $message)
+                                            {{ $i++ }}. {{ $message }}<br>
+                                        @endforeach
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="mt-6">
                                 <label for="father_about"
                                     class="block text-sm font-medium @if ($errors->has('father_about')) text-red-700 @else text-gray-700 @endif">Otangiz
                                     haqida yozing</label>
@@ -372,86 +450,7 @@
 
 
                         <div class="shadow-lg p-6">
-
-
-                            <div >
-                                <label for="phone_number"
-                                    class="block text-sm font-medium @if ($errors->has('telefon')) text-red-700 @else text-gray-700 @endif">Bog'lanish
-                                    uchun telefon raqamiz (shaxsiy)</label>
-                                <div class="relative rounded-md shadow-sm mt-1">
-                                    <div class="absolute inset-y-0 flex  items-center left-0 pl-3">
-                                        <svg class="h-5 w-5 @if ($errors->has('telefon')) text-red-400 @else text-gray-400 @endif"
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                d="M19.5 9.75a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75v-4.5a.75.75 0 011.5 0v2.69l4.72-4.72a.75.75 0 111.06 1.06L16.06 9h2.69a.75.75 0 01.75.75z"
-                                                clip-rule="evenodd" />
-                                            <path fill-rule="evenodd"
-                                                d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
-                                                clip-rule="evenodd" />uni
-                                        </svg>
-                                    </div>
-                                    <input type="number" id="phone_number" required
-                                        onkeydown="if (event.key === '-' || event.key === ',' || event.key === 'E' || event.key === 'e' || event.key === '.') event.preventDefault();"
-                                        name="telefon" value="{{ old('telefon') }}"
-                                        class="w-full pl-10 rounded-md text-sm @if ($errors->has('telefon')) border-red-300
-                                      focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
-                                        placeholder="+998(00 000 00 00)">
-                                </div>
-                                @if ($errors->has('telefon'))
-                                    <p class="mt-2 text-sm text-red-600">
-                                        @php
-                                            $i = 1;
-                                        @endphp
-                                        @foreach ($errors->get('telefon') as $message)
-                                            {{ $i++ }}. {{ $message }}<br>
-                                        @endforeach
-                                    </p>
-                                @endif
-                            </div>
-
-
-                            <div class="mt-6">
-                                <label for="residence_to_passport"
-                                    class="block text-sm font-medium @if ($errors->has('residence_to_passport')) text-red-700 @else text-gray-700 @endif">Passport
-                                    bo'yicha doyimiy yashash manzilingiz</label>
-                                <div class="relative rounded-md shadow-sm mt-1">
-
-                                    <input type="text" id="residence_to_passport" name="residence_to_passport"
-                                        required value="{{ old('residence_to_passport') }}"
-                                        class="w-full pl-5 rounded-md text-sm @if ($errors->has('residence_to_passport')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
-                                        placeholder="Viloyat, Shahar(Tuman)">
-
-                                </div>
-                                @if ($errors->has('residence_to_passport'))
-                                    <p class="mt-2 text-sm text-red-600">
-                                        @error('residence_to_passport')
-                                            {{ $message }}
-                                        @enderror
-                                    </p>
-                                @endif
-                            </div>
-
-                            <div class="mt-4 bg-gray-100 p-4 rounded-md">
-                                <label for="passport_file_upload" class="block text-sm font-medium ">Passportingiz
-                                    suratini yuklang (Iloji bo'lsa bir suratda oldi va orqa taraflari bilan)</label>
-                                <div class="relative rounded-md shadow-sm mt-1">
-                                    <input type="file" id="passport_file_upload" name="passport_file_upload"
-                                        required
-                                        class="w-full pl-5 rounded-md mt-4 text-sm border-gray-300 focus:border-green-500 focus:ring-green-500">
-                                </div>
-                                @if ($errors->has('passport_file_upload'))
-                                    <p class="mt-2 text-sm text-red-600">
-                                        @php
-                                            $i = 1;
-                                        @endphp
-                                        @foreach ($errors->get('passport_file_upload') as $message)
-                                            {{ $i++ }}. {{ $message }}<br>
-                                        @endforeach
-                                    </p>
-                                @endif
-                            </div>
-
-                            <div class="mt-6">
+                            <div>
                                 <label for="ignition_code"
                                     class="block text-sm font-medium @if ($errors->has('ignition_code')) text-red-700 @else text-gray-700 @endif">Yo'nalish
                                     shifri va Nomi</label>
@@ -608,7 +607,7 @@
                             <div class="mt-6">
                                 <label for="name_of_educational"
                                     class="block text-sm font-medium @if ($errors->has('name_of_educational')) text-red-700 @else text-gray-700 @endif">
-                                Qaysi ta'lim muassasasini bitirgansiz?
+                                    Qaysi ta'lim muassasasini bitirgansiz?
                                 </label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
@@ -631,7 +630,8 @@
 
                             <div class="mt-6">
                                 <label for="ignition_code"
-                                    class="block text-sm font-medium @if ($errors->has('ignition_code')) text-red-700 @else text-gray-700 @endif">Ta'lim muassasasini qaysi yili va qaysi yo'nalishda bitirgansiz?</label>
+                                    class="block text-sm font-medium @if ($errors->has('ignition_code')) text-red-700 @else text-gray-700 @endif">Ta'lim
+                                    muassasasini qaysi yili va qaysi yo'nalishda bitirgansiz?</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -661,7 +661,8 @@
                                             </div>
 
                                         </div>
-                                        <input type="text" id="direction_of_educational" name="direction_of_educational" required
+                                        <input type="text" id="direction_of_educational"
+                                            name="direction_of_educational" required
                                             value="{{ old('direction_of_educational') }}"
                                             class="w-full md:w-auto pl-5 rounded-md text-sm @if ($errors->has('direction_of_educational')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
                                             placeholder="Yo'nalish nomini yozing">
@@ -677,6 +678,80 @@
                                 @endif
                             </div>
 
+                            <div class="mt-6">
+                                <label for="seriya_of_educational"
+                                    class="block text-sm font-medium @if ($errors->has('seriya_of_educational') || $errors->has('number_of_educational')) text-red-700 @else text-gray-700 @endif">Diplom
+                                    seriyasi va raqamini yozing</label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <input type="text" id="seriya_of_educational" name="seriya_of_educational"
+                                            required value="{{ old('seriya_of_educational') }}"
+                                            class="w-full md:w-sm pl-5 rounded-md text-sm @if ($errors->has('seriya_of_educational')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                            placeholder="Diplom seryasini yozing">
+                                        <input type="text" id="number_of_educational" name="number_of_educational"
+                                            required value="{{ old('number_of_educational') }}"
+                                            class="w-full md:w-auto pl-5 rounded-md text-sm @if ($errors->has('number_of_educational')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                            placeholder="Diplom raqamini yozing">
+                                    </div>
+
+                                </div>
+                                @if ($errors->has('seriya_of_educational'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('seriya_of_educational')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+
+                                @if ($errors->has('number_of_educational'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('number_of_educational')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="mt-6">
+                                <label for="language_i_know"
+                                    class="block text-sm font-medium @if ($errors->has('language_i_know')) text-red-700 @else text-gray-700 @endif">
+                                    Siz qaysi chet tillarini bilasiz va qay darajada?
+                                </label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+                                    <input type="text" id="language_i_know" name="language_i_know"
+                                        required value="{{ old('language_i_know') }}"
+                                        class="w-full md:w-sm pl-5 rounded-md text-sm @if ($errors->has('language_i_know')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="Masalan: Ingiliz tili Beginer...">
+                                </div>
+                                @if ($errors->has('language_i_know'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('language_i_know')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+                            </div>
+
+                            <div class="mt-6">
+                                <label for="where_i_worked"
+                                    class="block text-sm font-medium @if ($errors->has('where_i_worked')) text-red-700 @else text-gray-700 @endif">
+                                    Ushbu oliy ta’lim muassasasiga kirish oldidan ishlagan tashkilot va ishlagan muddatingiz (agar mavjud bo‘lsa)
+                                </label>
+                                <div class="relative rounded-md shadow-sm mt-1">
+                                    <textarea rows="5" id="where_i_worked" name="where_i_worked"
+                                        required value="{{ old('where_i_worked') }}"
+                                        class="w-full md:w-sm pl-5 rounded-md text-sm @if ($errors->has('where_i_worked')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
+                                        placeholder="Masalan: Ingiliz tili Beginer..."> </textarea>
+                                </div>
+                                @if ($errors->has('where_i_worked'))
+                                    <p class="mt-2 text-sm text-red-600">
+                                        @error('where_i_worked')
+                                            {{ $message }}
+                                        @enderror
+                                    </p>
+                                @endif
+                            </div>
 
                             <div class="mt-9">
 
