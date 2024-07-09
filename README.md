@@ -1,3 +1,7 @@
+<p align="left">
+Bu proyektimda OTMga xorijiy abiturientlardan arizalarni qabul qilish saytini tuzganman, proyekt test holatida va bazi funksiyalar boshqa proyektimdan olingan, eski keraksiz kodham bor! (SHunchaki uni olib tashlashga erindim). Proyekt shunchaki mashq maqsadida qilingan undan prodakshinda foydalanmang! qabul.cspu.uz saytida publick qo'yilgan!
+</p>
+
 <h1 align="center">Hi 👋, I'm Raxmatilla</h1>
 <h3 align="center">I am a simple web developer from Uzbekistan</h3>
 
