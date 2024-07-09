@@ -56,7 +56,7 @@
 
                             <hr>
                             @if($hulosa['holat'] == "maqullandi")
-                                <h2 class="text-center normal-case text-green-700 text-xl font-bold mt-3">Ariza natijasi: <b>Sizga TTJdan joy ajratiladi.</b></h2>
+                                <h2 class="text-center normal-case text-green-700 text-xl font-bold mt-3">Ariza natijasi: <b>Sizning arizangiz maqullandi! Tez orada siz bilan bog'lanamiz.</b></h2>
                             @elseif($hulosa['holat'] == "rad_etildi")
                                 <h2 class="text-center normal-case text-red-700 text-xl font-bold mt-3">Ariza natijasi: <b>Sizning arizangiz rad etildi.</b></h2>
                             @endif

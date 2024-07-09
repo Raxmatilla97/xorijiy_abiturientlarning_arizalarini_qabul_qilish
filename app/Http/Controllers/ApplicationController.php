@@ -101,16 +101,47 @@ class ApplicationController extends Controller
         $templateProcessor->setValue('ignition_code', $userDetail->ignition_code);
         $templateProcessor->setValue('ignition_name', $userDetail->ignition_name);
         $templateProcessor->setValue('educational_form', $userDetail->educational_form);
-        $templateProcessor->setValue('gender', $userDetail->gender);
-        $templateProcessor->setValue('education_level', $userDetail->education_level);
+        // $templateProcessor->setValue('gender', $userDetail->gender);
+        if ($userDetail->gender == 'erkak') {
+            $templateProcessor->setValue('gender', 'Erkak');
+        } else {
+            $templateProcessor->setValue('gender', 'Ayol');
+        }
+        // $templateProcessor->setValue('education_level', $userDetail->education_level);
+        if ($userDetail->education_level == 'oliy') {
+            $templateProcessor->setValue('education_level', 'Oliy');
+        }if ($userDetail->education_level == 'orta_maxsus') {
+            $templateProcessor->setValue('education_level', "O'rta maxsus");
+        }else {
+            $templateProcessor->setValue('education_level', "O'rta");
+        }
         $templateProcessor->setValue('brith_year', $userDetail->brith_year);
         $templateProcessor->setValue('brith_day', $userDetail->brith_day);
         $templateProcessor->setValue('brith_moth', $userDetail->brith_moth);
         $templateProcessor->setValue('passport_place_info', $userDetail->passport_place_info);
-        $templateProcessor->setValue('lang_prompt', $userDetail->lang_prompt);
+        // $templateProcessor->setValue('lang_prompt', $userDetail->lang_prompt);
+        if ($userDetail->lang_prompt == 'uz') {
+            $templateProcessor->setValue('lang_prompt', "O'zbek");
+        }if ($userDetail->lang_prompt == 'rus') {
+            $templateProcessor->setValue('lang_prompt', "Rus");
+        }else {
+            $templateProcessor->setValue('lang_prompt', "Qoraqalpoq");
+        }
         $templateProcessor->setValue('father_about', $userDetail->father_about);
         $templateProcessor->setValue('mather_about', $userDetail->mather_about);
         $templateProcessor->setValue('about_health', $userDetail->about_health);
+
+        $templateProcessor->setValue('passport_seriya', $userDetail->passport_seriya);
+        $templateProcessor->setValue('passport_number', $userDetail->passport_number);
+        $templateProcessor->setValue('passport_berilgan_sana', $userDetail->passport_berilgan_sana);
+        $templateProcessor->setValue('passport_kim_bergan', $userDetail->passport_kim_bergan);
+        $templateProcessor->setValue('name_of_educational', $userDetail->name_of_educational);
+        $templateProcessor->setValue('year_of_educational', $userDetail->year_of_educational);
+        $templateProcessor->setValue('direction_of_educational', $userDetail->direction_of_educational);
+        $templateProcessor->setValue('seriya_of_educational', $userDetail->seriya_of_educational);
+        $templateProcessor->setValue('number_of_educational', $userDetail->number_of_educational);
+        $templateProcessor->setValue('language_i_know', $userDetail->language_i_know);
+        $templateProcessor->setValue('where_i_worked', $userDetail->where_i_worked);
 
 
         $outputDirectory = storage_path('uploads');

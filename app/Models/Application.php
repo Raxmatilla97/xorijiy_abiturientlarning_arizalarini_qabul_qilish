@@ -43,8 +43,8 @@ class Application extends Model
         'seriya_of_educational',
         'number_of_educational',
         'language_i_know',
-        'my_language_level',
         'where_i_worked',
+        'message',
 
         // 30
     ];

@@ -452,8 +452,7 @@
                         <div class="shadow-lg p-6">
                             <div>
                                 <label for="ignition_code"
-                                    class="block text-sm font-medium @if ($errors->has('ignition_code')) text-red-700 @else text-gray-700 @endif">Yo'nalish
-                                    shifri va Nomi</label>
+                                    class="block text-sm font-medium @if ($errors->has('ignition_code')) text-red-700 @else text-gray-700 @endif">CHDPU oliy ta'lim muassasasida o'qishni istagan yo'nalish shifri va nomini yozing</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -742,7 +741,7 @@
                                     <textarea rows="5" id="where_i_worked" name="where_i_worked"
                                         required value="{{ old('where_i_worked') }}"
                                         class="w-full md:w-sm pl-5 rounded-md text-sm @if ($errors->has('where_i_worked')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 focus:border-green-500 focus:ring-green-500 @endif"
-                                        placeholder="Masalan: Ingiliz tili Beginer..."> </textarea>
+                                        placeholder="Masalan: Ingiliz tili Beginer...">{{ old('father_about') }} </textarea>
                                 </div>
                                 @if ($errors->has('where_i_worked'))
                                     <p class="mt-2 text-sm text-red-600">
