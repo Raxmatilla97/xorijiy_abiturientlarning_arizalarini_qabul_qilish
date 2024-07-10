@@ -384,7 +384,7 @@
 
                                     <textarea id="father_about" name="father_about" rows="3" required
                                         class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('father_about')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
-                                        placeholder="Familiyasi, ismi va otasining ismi, turar joyi, lavozimi, telefon raqami">{{ old('father_about') }}</textarea>
+                                        placeholder="Familiyasi, ismi va otasining ismi, telefon raqami">{{ old('father_about') }}</textarea>
 
                                     @if ($errors->has('father_about'))
                                         <p class="mt-2 text-sm text-red-600">
@@ -407,7 +407,7 @@
 
                                     <textarea id="mather_about" name="mather_about" rows="3" required
                                         class="w-full rounded-md text-sm border-gray-300 focus:border-green-500 focus:ring-green-500 @if ($errors->has('mather_about')) border-red-300 focus:border-red-500 focus:ring-red-500 text-red-900 placeholder-red-300 @else border-gray-300 @endif"
-                                        placeholder="Familiyasi, ismi va otasining ismi, turar joyi, lavozimi, telefon raqami">{{ old('mather_about') }}</textarea>
+                                        placeholder="Familiyasi, ismi va otasining ismi, telefon raqami">{{ old('mather_about') }}</textarea>
 
                                     @if ($errors->has('mather_about'))
                                         <p class="mt-2 text-sm text-red-600">
