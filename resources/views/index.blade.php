@@ -219,7 +219,7 @@
 
                             <div class="mt-6">
                                 <label for="passport_place_info"
-                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Tug'ulgan
+                                    class="block text-sm font-medium @if ($errors->has('passport_place_info')) text-red-700 @else text-gray-700 @endif">Qaysi davlat fuqorosisiz va tug'ulgan
                                     joyingiz (To'liq holda yozing!)</label>
                                 <div class="relative rounded-md shadow-sm mt-1">
 
